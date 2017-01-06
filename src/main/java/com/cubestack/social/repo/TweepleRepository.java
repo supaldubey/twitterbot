@@ -7,14 +7,14 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.cubestack.social.model.Tweep;
+import com.cubestack.social.model.TwitterUser;
 
 /**
  * @author supal
  *
  */
-public interface TweepleRepository extends JpaRepository<Tweep, Long> {
-	List<Tweep> findByScreenNameIgnoreCase(String value);
+public interface TweepleRepository extends JpaRepository<TwitterUser, Long> {
+	List<TwitterUser> findByScreenNameIgnoreCase(String value);
 	
-	List<Tweep> findByTwitterId(long value);
+	List<TwitterUser> findByTwitterId(long value);
 }

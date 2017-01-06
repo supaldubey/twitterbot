@@ -20,7 +20,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="TWEEP")
-public class Tweep {
+public class TwitterUser {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

@@ -8,7 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cubestack.social.model.Tweep;
+import com.cubestack.social.model.TwitterUser;
 import com.cubestack.social.repo.TweepleRepository;
 
 
@@ -23,8 +23,8 @@ public class PersistantService {
 	private TweepleRepository repository;
 
 
-	public Tweep findTweepByTwitterId(long twitterId) {
-		List<Tweep> tweeples = repository.findByTwitterId(twitterId);
+	public TwitterUser findTweepByTwitterId(long twitterId) {
+		List<TwitterUser> tweeples = repository.findByTwitterId(twitterId);
 		if (tweeples != null && !tweeples.isEmpty()) {
 			// Should be always one
 			return tweeples.get(0);
@@ -32,7 +32,7 @@ public class PersistantService {
 		return null;
 	}
 
-	public Tweep saveTweep(Tweep tweeple) {
+	public TwitterUser saveTweep(TwitterUser tweeple) {
 		return repository.save(tweeple);
 	}
 

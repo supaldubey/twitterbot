@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cubestack.social.candidate.TweepleCandidate;
-import com.cubestack.social.model.Tweep;
+import com.cubestack.social.model.TwitterUser;
 import com.cubestack.social.model.Tweet;
 import com.cubestack.social.model.TweetList;
 
@@ -25,7 +25,7 @@ public class TweetListService {
 	private PersistantService persistantService;
 
 	public void addTweetToList(String category, TweepleCandidate candidate) {
-		Tweep tweeple = find(candidate);
+		TwitterUser tweeple = find(candidate);
 		TweetList tweetList = find(category.toLowerCase(), tweeple);
 
 		Tweet tweet = new Tweet();
@@ -34,7 +34,7 @@ public class TweetListService {
 
 	}
 
-	private TweetList find(String category, Tweep tweeple) {
+	private TweetList find(String category, TwitterUser tweeple) {
 
 		TweetList list = null;
 		List<TweetList> tweetLists = tweeple.getTweetLists();
@@ -64,11 +64,11 @@ public class TweetListService {
 		return list;
 	}
 
-	public Tweep find(TweepleCandidate candidate) {
-		Tweep tweeple = persistantService.findTweepByTwitterId(candidate.getTwitterId());
+	public TwitterUser find(TweepleCandidate candidate) {
+		TwitterUser tweeple = persistantService.findTweepByTwitterId(candidate.getTwitterId());
 		// Save Tweep
 		if (tweeple == null) {
-			tweeple = new Tweep();
+			tweeple = new TwitterUser();
 			tweeple.setName(candidate.getScreenName());
 			tweeple.setScreenName(candidate.getScreenName());
 			tweeple.setTwitterId(candidate.getTwitterId());
