@@ -16,7 +16,7 @@ import twitter4j.TwitterFactory;
  */
 public class TestTwitter {
 
-	public static void main(String[] as) {
+	public void main() {
 		twitter4j.Twitter twitter = new TwitterFactory().getInstance();
 		try {
 			Query query = new Query("#demonatization");

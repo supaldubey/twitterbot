@@ -4,7 +4,8 @@
 package com.cubestack.social.candidate;
 
 import org.hibernate.validator.constraints.NotEmpty;
-import org.hibernate.validator.constraints.Range;
+
+import twitter4j.Status;
 
 
 
@@ -16,14 +17,15 @@ public class TweepleCandidate {
 
 	private long id;
 
-	@Range(min = 1950, max = 2050, message = "Year should be between 1950 and 2050")
-	private int year;
+	@NotEmpty(message ="Twitter Id is missing.")
+	private long twitterId;
 
-	@NotEmpty(message ="Make is Required")
-	private String make;
-
-	@NotEmpty(message ="Model is Required")
-	private String model;
+	@NotEmpty(message ="Twitter Screen name is missing.")
+	private String screenName;
+	
+	private Status status;
+	
+	private int pin;
 
 	public long getId() {
 		return id;
@@ -33,29 +35,36 @@ public class TweepleCandidate {
 		this.id = id;
 	}
 
-	public int getYear() {
-		return year;
+	public long getTwitterId() {
+		return twitterId;
 	}
 
-	public void setYear(int year) {
-		this.year = year;
+	public void setTwitterId(long twitterId) {
+		this.twitterId = twitterId;
 	}
 
-	public String getMake() {
-		return make;
+	public String getScreenName() {
+		return screenName;
 	}
 
-	public void setMake(String make) {
-		this.make = make;
+	public void setScreenName(String screenName) {
+		this.screenName = screenName;
 	}
 
-	public String getModel() {
-		return model;
+	public int getPin() {
+		return pin;
 	}
 
-	public void setModel(String model) {
-		this.model = model;
+	public void setPin(int pin) {
+		this.pin = pin;
 	}
 
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
 
 }

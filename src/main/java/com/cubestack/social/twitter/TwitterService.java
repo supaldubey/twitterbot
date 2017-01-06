@@ -11,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cubestack.social.exception.ProfileNotFoundException;
-import com.cubestack.social.model.Tweeple;
-import com.cubestack.social.repo.TwitterRepository;
+import com.cubestack.social.model.Tweep;
+import com.cubestack.social.repo.TweepleRepository;
 
 /**
  * @author supal
@@ -23,20 +23,16 @@ import com.cubestack.social.repo.TwitterRepository;
 public class TwitterService {
 	
 	@Autowired
-	private TwitterRepository twitterRepository;
+	private TweepleRepository twitterRepository;
 	
 	
-	public Tweeple save(Tweeple tweep) {
+	public Tweep save(Tweep tweep) {
 		return twitterRepository.save(tweep);
 	}
 	
 	
-	public List<Tweeple> findAll() {
-		return twitterRepository.findAll();
-	}
-	
-	public Tweeple find(long tweepId) throws ProfileNotFoundException {
-		Tweeple tweep = twitterRepository.findOne(tweepId);
+	public Tweep find(long tweepId) throws ProfileNotFoundException {
+		Tweep tweep = twitterRepository.findOne(tweepId);
 		if(tweep == null) {
 			throw new ProfileNotFoundException();
 		}
@@ -44,7 +40,7 @@ public class TwitterService {
 	}
 	
 
-	public List<Tweeple> findByScreenId(String value) {
-		return twitterRepository.findByScreenNameIgnoreCase(value);
+	public List<Tweep> findByScreenId(String screenName) {
+		return twitterRepository.findByScreenNameIgnoreCase(screenName);
 	}
 }
