@@ -3,6 +3,7 @@
  */
 package com.cubestack.social.model;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -30,7 +31,7 @@ public class TweetList {
 	private String name;
 	
 	@OneToMany(cascade={CascadeType.ALL}) // LAZY
-	private List<Tweet> tweets;
+	private List<Tweet> tweets = new LinkedList<Tweet>();
 
 	public long getId() {
 		return id;

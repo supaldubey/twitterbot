@@ -35,7 +35,7 @@ public class Tweet {
 	private long inReplyToUserId;
 	
 	@Column(name="RPLY_USR_SCR")
-	private long inReplyToUserName;
+	private String inReplyToUserName;
 
 	public long getId() {
 		return id;
@@ -69,11 +69,11 @@ public class Tweet {
 		this.inReplyToUserId = inReplyToUserId;
 	}
 
-	public long getInReplyToUserName() {
+	public String getInReplyToUserName() {
 		return inReplyToUserName;
 	}
 
-	public void setInReplyToUserName(long inReplyToUserName) {
+	public void setInReplyToUserName(String inReplyToUserName) {
 		this.inReplyToUserName = inReplyToUserName;
 	}
 	

@@ -6,6 +6,8 @@ package com.cubestack.social.twitter;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,11 +21,13 @@ import com.cubestack.social.model.TweetList;
  *
  */
 @Service
+@Transactional
 public class TweetListService {
 
 	@Autowired
 	private PersistantService persistantService;
 
+	
 	public void addTweetToList(String category, TweepleCandidate candidate) {
 		TwitterUser tweeple = find(candidate);
 		TweetList tweetList = find(category.toLowerCase(), tweeple);
@@ -31,8 +35,25 @@ public class TweetListService {
 		Tweet tweet = new Tweet();
 		tweet.setInReplyToTweetId(candidate.getStatus().getInReplyToStatusId());
 		tweet.setInReplyToUserId(candidate.getStatus().getInReplyToUserId());
+		tweet.setInReplyToUserName(candidate.getStatus().getUser().getScreenName());
+		
+		tweetList.getTweets().add(tweet);
+		
+		persistantService.saveTweep(tweeple);
 
 	}
+	
+	public List<Tweet> findTweets(long userId, String category) {
+		TwitterUser twitterUser = persistantService.findTweepByTwitterId(userId);
+		
+		for(TweetList list: twitterUser.getTweetLists()) {
+			if(category.equalsIgnoreCase(list.getName())) {
+				return list.getTweets();
+			}
+		}
+		return null;
+	}
+	
 
 	private TweetList find(String category, TwitterUser tweeple) {
 
@@ -72,6 +93,8 @@ public class TweetListService {
 			tweeple.setName(candidate.getScreenName());
 			tweeple.setScreenName(candidate.getScreenName());
 			tweeple.setTwitterId(candidate.getTwitterId());
+			
+			tweeple.setTweetLists(new LinkedList<TweetList>());
 
 			// Save this
 			tweeple = persistantService.saveTweep(tweeple);
