@@ -31,12 +31,6 @@ public class Tweet {
 	@Column(name="REPLY_TWEET")
 	private long inReplyToTweetId;
 	
-	@Column(name="RPLY_USR_ID")
-	private long inReplyToUserId;
-	
-	@Column(name="RPLY_USR_SCR")
-	private String inReplyToUserName;
-
 	public long getId() {
 		return id;
 	}
@@ -61,23 +55,13 @@ public class Tweet {
 		this.inReplyToTweetId = inReplyToTweetId;
 	}
 
-	public long getInReplyToUserId() {
-		return inReplyToUserId;
+
+	public long getTweetId() {
+		return tweetId;
 	}
 
-	public void setInReplyToUserId(long inReplyToUserId) {
-		this.inReplyToUserId = inReplyToUserId;
+	public void setTweetId(long tweetId) {
+		this.tweetId = tweetId;
 	}
-
-	public String getInReplyToUserName() {
-		return inReplyToUserName;
-	}
-
-	public void setInReplyToUserName(String inReplyToUserName) {
-		this.inReplyToUserName = inReplyToUserName;
-	}
-	
-	
-	
 
 }

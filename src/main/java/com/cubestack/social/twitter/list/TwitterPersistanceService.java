@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cubestack.social.twitter;
+package com.cubestack.social.twitter.list;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ import com.cubestack.social.repo.TweepleRepository;
  */
 @Service
 @Transactional
-public class TwitterService {
+public class TwitterPersistanceService {
 	
 	@Autowired
 	private TweepleRepository twitterRepository;

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cubestack.social.twitter;
+package com.cubestack.social.twitter.list;
 
 import java.util.List;
 

@@ -13,7 +13,7 @@ import twitter4j.Status;
  * @author supal
  *
  */
-public class TweepleCandidate {
+public class TwitterUserCandidate {
 
 	private long id;
 

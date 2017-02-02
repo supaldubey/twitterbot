@@ -32,7 +32,7 @@ public class TweetList {
 	
 	@OneToMany(cascade={CascadeType.ALL}) // LAZY
 	private List<Tweet> tweets = new LinkedList<Tweet>();
-
+	
 	public long getId() {
 		return id;
 	}

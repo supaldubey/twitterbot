@@ -5,6 +5,7 @@ package com.cubestack.social.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,26 +20,26 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name="TWEEP")
+@Table(name = "TWEEP")
 public class TwitterUser {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	
-	@Column(name="NAME")
+
+	@Column(name = "NAME")
 	private String name;
-	
-	@Column(name="TWTR_ID")
+
+	@Column(name = "TWTR_ID")
 	private long twitterId;
-	
-	@Column(name="SCREEN_NAME")
+
+	@Column(name = "SCREEN_NAME")
 	private String screenName;
-	
-	@Column(name="PIN")
+
+	@Column(name = "PIN")
 	private int pin;
-	
-	@OneToMany(fetch=FetchType.EAGER)
+
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<TweetList> tweetLists;
 
 	public long getId() {
@@ -88,7 +89,5 @@ public class TwitterUser {
 	public void setTwitterId(long twitterId) {
 		this.twitterId = twitterId;
 	}
-	
-	
-	
+
 }
