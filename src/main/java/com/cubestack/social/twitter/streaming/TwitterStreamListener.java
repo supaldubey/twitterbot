@@ -6,6 +6,9 @@ package com.cubestack.social.twitter.streaming;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.cubestack.social.event.DirectMessageEvent;
+import com.cubestack.social.event.EventDispatcher;
+import com.cubestack.social.event.FollowEvent;
 import com.cubestack.social.twitter.tags.TwitterStatusProcessor;
 
 import twitter4j.DirectMessage;
@@ -30,6 +33,9 @@ public class TwitterStreamListener implements UserStreamListener {
 
     @Autowired
     private TwitterStatusProcessor statusProcessor;
+    
+    @Autowired
+    private EventDispatcher eventDispatcher;
 
     @Override
     public void onException(Exception ex) {
@@ -107,7 +113,7 @@ public class TwitterStreamListener implements UserStreamListener {
 
     @Override
     public void onFollow(User source, User followedUser) {
-
+	eventDispatcher.dispatch(new FollowEvent());
     }
 
     @Override
@@ -117,7 +123,7 @@ public class TwitterStreamListener implements UserStreamListener {
 
     @Override
     public void onDirectMessage(DirectMessage directMessage) {
-
+	eventDispatcher.dispatch(new DirectMessageEvent());
     }
 
     @Override

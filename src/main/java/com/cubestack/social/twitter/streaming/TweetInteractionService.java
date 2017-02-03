@@ -18,7 +18,7 @@ import twitter4j.TwitterException;
  *
  */
 @Service
-public class TweetSendingService {
+public class TweetInteractionService {
 
     @Autowired
     private Twitter twitter;
@@ -39,4 +39,9 @@ public class TweetSendingService {
 
 	twitter.updateStatus(statusUpdate);
     }
+
+    public void sendDirectMsg(String text, String userId) throws TwitterException {
+	twitter.sendDirectMessage(userId, text);
+    }
+
 }

@@ -43,6 +43,8 @@ public class TweetListService {
 
 	// In case we need to point out to interaction tweet (SOURCE)
 	tweet.setInReplyToTweetId(interactionStatus.getId());
+	
+	tweet.setList(tweetList);
 
 	tweetList.getTweets().add(tweet);
 
