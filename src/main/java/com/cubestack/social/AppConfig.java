@@ -21,17 +21,17 @@ import twitter4j.TwitterFactory;
 @EnableJpaRepositories
 @EnableTransactionManagement
 public class AppConfig {
-	
-	@Bean
-	public ServletRegistrationBean h2servletRegistration() {
-	    ServletRegistrationBean registration = new ServletRegistrationBean(new WebServlet());
-	    registration.addUrlMappings("/console/*");
-	    return registration;
-	}
-	
-	@Bean
-	public Twitter twitter() {
-		return new TwitterFactory().getInstance();
-	}
+
+    @Bean
+    public ServletRegistrationBean h2servletRegistration() {
+	ServletRegistrationBean registration = new ServletRegistrationBean(new WebServlet());
+	registration.addUrlMappings("/console/*");
+	return registration;
+    }
+
+    @Bean
+    public Twitter twitter() {
+	return new TwitterFactory().getInstance();
+    }
 
 }

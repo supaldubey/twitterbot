@@ -15,6 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.cubestack.social.util.PasswordGenerator;
+
 /**
  * @author Supal Dubey
  *
@@ -23,71 +25,75 @@ import javax.persistence.Table;
 @Table(name = "TWEEP")
 public class TwitterUser {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+    public TwitterUser() {
+	this.pin = new String(PasswordGenerator.generatePswd());
+    }
 
-	@Column(name = "NAME")
-	private String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
-	@Column(name = "TWTR_ID")
-	private long twitterId;
+    @Column(name = "NAME")
+    private String name;
 
-	@Column(name = "SCREEN_NAME")
-	private String screenName;
+    @Column(name = "TWTR_ID")
+    private long twitterId;
 
-	@Column(name = "PIN")
-	private int pin;
+    @Column(name = "SCREEN_NAME")
+    private String screenName;
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private List<TweetList> tweetLists;
+    @Column(name = "PIN")
+    private String pin;
 
-	public long getId() {
-		return id;
-	}
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<TweetList> tweetLists;
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public long getId() {
+	return id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setId(long id) {
+	this.id = id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+	return name;
+    }
 
-	public String getScreenName() {
-		return screenName;
-	}
+    public void setName(String name) {
+	this.name = name;
+    }
 
-	public void setScreenName(String screenName) {
-		this.screenName = screenName;
-	}
+    public String getScreenName() {
+	return screenName;
+    }
 
-	public int getPin() {
-		return pin;
-	}
+    public void setScreenName(String screenName) {
+	this.screenName = screenName;
+    }
 
-	public void setPin(int pin) {
-		this.pin = pin;
-	}
+    public String getPin() {
+	return pin;
+    }
 
-	public List<TweetList> getTweetLists() {
-		return tweetLists;
-	}
+    public void setPin(String pin) {
+	this.pin = pin;
+    }
 
-	public void setTweetLists(List<TweetList> tweetLists) {
-		this.tweetLists = tweetLists;
-	}
+    public List<TweetList> getTweetLists() {
+	return tweetLists;
+    }
 
-	public long getTwitterId() {
-		return twitterId;
-	}
+    public void setTweetLists(List<TweetList> tweetLists) {
+	this.tweetLists = tweetLists;
+    }
 
-	public void setTwitterId(long twitterId) {
-		this.twitterId = twitterId;
-	}
+    public long getTwitterId() {
+	return twitterId;
+    }
+
+    public void setTwitterId(long twitterId) {
+	this.twitterId = twitterId;
+    }
 
 }

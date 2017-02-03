@@ -18,15 +18,15 @@ import twitter4j.TwitterStreamFactory;
 
 @Service
 public class StreamingTwitter {
-	
-	@Autowired
-	private TwitterStreamListener listener;
 
-	@PostConstruct
-	public void init () {
+    @Autowired
+    private TwitterStreamListener listener;
 
-		TwitterStream twitterStream = new TwitterStreamFactory().getInstance();
-		twitterStream.addListener(listener);
-		twitterStream.user();
-	}
+    @PostConstruct
+    public void init() {
+
+	TwitterStream twitterStream = new TwitterStreamFactory().getInstance();
+	twitterStream.addListener(listener);
+	twitterStream.user();
+    }
 }

@@ -7,64 +7,62 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import twitter4j.Status;
 
-
-
 /**
  * @author supal
  *
  */
 public class TwitterUserCandidate {
 
-	private long id;
+    private long id;
 
-	@NotEmpty(message ="Twitter Id is missing.")
-	private long twitterId;
+    @NotEmpty(message = "Twitter Id is missing.")
+    private long twitterId;
 
-	@NotEmpty(message ="Twitter Screen name is missing.")
-	private String screenName;
-	
-	private Status status;
-	
-	private int pin;
+    @NotEmpty(message = "Twitter Screen name is missing.")
+    private String screenName;
 
-	public long getId() {
-		return id;
-	}
+    private Status status;
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    private int pin;
 
-	public long getTwitterId() {
-		return twitterId;
-	}
+    public long getId() {
+	return id;
+    }
 
-	public void setTwitterId(long twitterId) {
-		this.twitterId = twitterId;
-	}
+    public void setId(long id) {
+	this.id = id;
+    }
 
-	public String getScreenName() {
-		return screenName;
-	}
+    public long getTwitterId() {
+	return twitterId;
+    }
 
-	public void setScreenName(String screenName) {
-		this.screenName = screenName;
-	}
+    public void setTwitterId(long twitterId) {
+	this.twitterId = twitterId;
+    }
 
-	public int getPin() {
-		return pin;
-	}
+    public String getScreenName() {
+	return screenName;
+    }
 
-	public void setPin(int pin) {
-		this.pin = pin;
-	}
+    public void setScreenName(String screenName) {
+	this.screenName = screenName;
+    }
 
-	public Status getStatus() {
-		return status;
-	}
+    public int getPin() {
+	return pin;
+    }
 
-	public void setStatus(Status status) {
-		this.status = status;
-	}
+    public void setPin(int pin) {
+	this.pin = pin;
+    }
+
+    public Status getStatus() {
+	return status;
+    }
+
+    public void setStatus(Status status) {
+	this.status = status;
+    }
 
 }

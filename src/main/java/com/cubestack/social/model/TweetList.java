@@ -20,45 +20,41 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name="TWEET_LIST")
+@Table(name = "TWEET_LIST")
 public class TweetList {
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private long id;
-	
-	@Column(name="NAME")
-	private String name;
-	
-	@OneToMany(cascade={CascadeType.ALL}) // LAZY
-	private List<Tweet> tweets = new LinkedList<Tweet>();
-	
-	public long getId() {
-		return id;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    @Column(name = "NAME")
+    private String name;
 
-	public String getName() {
-		return name;
-	}
+    @OneToMany(cascade = { CascadeType.ALL }) // LAZY
+    private List<Tweet> tweets = new LinkedList<Tweet>();
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public long getId() {
+	return id;
+    }
 
-	public List<Tweet> getTweets() {
-		return tweets;
-	}
+    public void setId(long id) {
+	this.id = id;
+    }
 
-	public void setTweets(List<Tweet> tweets) {
-		this.tweets = tweets;
-	}
-	
-	
-	
-	
-	
+    public String getName() {
+	return name;
+    }
+
+    public void setName(String name) {
+	this.name = name;
+    }
+
+    public List<Tweet> getTweets() {
+	return tweets;
+    }
+
+    public void setTweets(List<Tweet> tweets) {
+	this.tweets = tweets;
+    }
+
 }

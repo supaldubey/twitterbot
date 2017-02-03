@@ -17,31 +17,27 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AppRestController {
 
-	private static final String MSG_SEPARATOR = ", ";
-	
-	
+    private static final String MSG_SEPARATOR = ", ";
 
-	@ExceptionHandler
-	public ResponseEntity<Response> handle(Exception exception) {
-		exception.printStackTrace();
-		
-		Response response = new Response();
-		response.setSuccess(false);
-		
-		if(exception instanceof MethodArgumentNotValidException) {
-			MethodArgumentNotValidException validationException = (MethodArgumentNotValidException) exception;
-			StringBuilder errorMsg = new StringBuilder();
-			for(FieldError error: validationException.getBindingResult().getFieldErrors()) {
-				errorMsg
-					.append(error.getDefaultMessage())
-					.append(MSG_SEPARATOR);
-			}
-			// Trim the last Comma
-			errorMsg = new StringBuilder(errorMsg.substring(0, errorMsg.length() - 2));
-			response.setMessage(errorMsg.toString());
-		} else {
-			response.setMessage(exception.getMessage());
-		}
-		return new ResponseEntity<Response>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+    @ExceptionHandler
+    public ResponseEntity<Response> handle(Exception exception) {
+	exception.printStackTrace();
+
+	Response response = new Response();
+	response.setSuccess(false);
+
+	if (exception instanceof MethodArgumentNotValidException) {
+	    MethodArgumentNotValidException validationException = (MethodArgumentNotValidException) exception;
+	    StringBuilder errorMsg = new StringBuilder();
+	    for (FieldError error : validationException.getBindingResult().getFieldErrors()) {
+		errorMsg.append(error.getDefaultMessage()).append(MSG_SEPARATOR);
+	    }
+	    // Trim the last Comma
+	    errorMsg = new StringBuilder(errorMsg.substring(0, errorMsg.length() - 2));
+	    response.setMessage(errorMsg.toString());
+	} else {
+	    response.setMessage(exception.getMessage());
 	}
+	return new ResponseEntity<Response>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }
