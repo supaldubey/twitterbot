@@ -25,7 +25,9 @@ public class TweetListProcessor extends BaseTagProcessor {
 
     @Override
     public void handle(Status interactionStatus, Status status) {
-
+	if(status == null) {
+	    return;
+	}
 	try {
 
 	    String text = interactionStatus.getText().toUpperCase();

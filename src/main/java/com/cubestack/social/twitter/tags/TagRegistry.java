@@ -32,8 +32,9 @@ public class TagRegistry {
 
     public void handleStream(Status interactionStatus, Status status) {
 	// We can process only one hashTag for now
-	if (interactionStatus.getHashtagEntities() == null || !(interactionStatus.getHashtagEntities().length == 1)) {
+	if (interactionStatus.getHashtagEntities() == null || (interactionStatus.getHashtagEntities().length < 1)) {
 	    // Reject and move on
+	    return;
 	}
 
 	HashtagEntity hashTag = interactionStatus.getHashtagEntities()[0];

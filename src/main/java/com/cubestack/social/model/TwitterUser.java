@@ -22,7 +22,7 @@ import com.cubestack.social.util.PasswordGenerator;
  *
  */
 @Entity
-@Table(name = "TWEEP")
+@Table(name = "TWITTER_USER")
 public class TwitterUser {
 
     public TwitterUser() {

@@ -8,6 +8,7 @@ import java.io.File;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import twitter4j.DirectMessage;
 import twitter4j.Status;
 import twitter4j.StatusUpdate;
 import twitter4j.Twitter;
@@ -39,9 +40,26 @@ public class TweetInteractionService {
 
 	twitter.updateStatus(statusUpdate);
     }
+    
+    public void sendTweetTo(Status root, String text, File entity) throws TwitterException {
+	StatusUpdate statusUpdate = new StatusUpdate(text);
 
-    public void sendDirectMsg(String text, String userId) throws TwitterException {
-	twitter.sendDirectMessage(userId, text);
+	if (root != null) {
+	    // Add screen name to make sure twitter acknowledges it as a reply
+	    statusUpdate = new StatusUpdate("@" + root.getUser().getScreenName() + " " + text);
+	    statusUpdate.setInReplyToStatusId(root.getId());
+	}
+
+	// Attach the unsplsah image
+	if (entity != null) {
+	    statusUpdate.setMedia(entity);
+	}
+
+	twitter.updateStatus(statusUpdate);
+    }
+
+    public DirectMessage sendDirectMsg(String text, String userId) throws TwitterException {
+	return twitter.sendDirectMessage(userId, text);
     }
 
 }
