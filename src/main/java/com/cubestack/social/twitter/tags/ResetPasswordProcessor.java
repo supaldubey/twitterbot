@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cubestack.social.twitter.list;
+package com.cubestack.social.twitter.tags;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import com.cubestack.social.model.TwitterUser;
 import com.cubestack.social.persistance.TwitterUserRepository;
 import com.cubestack.social.twitter.streaming.TweetInteractionService;
-import com.cubestack.social.twitter.tags.BaseTagProcessor;
+import com.cubestack.social.util.PasswordGenerator;
 
 import twitter4j.DirectMessage;
 import twitter4j.Status;
@@ -22,9 +22,9 @@ import twitter4j.TwitterException;
  *
  */
 @Component
-public class PasswordProcessor extends BaseTagProcessor {
+public class ResetPasswordProcessor extends PasswordProcessor {
 
-    private static final String PASSWORD = "PASSWORD";
+    private static final String RESET_PASSWORD = "RESET";
 
     @Autowired
     private TwitterUserRepository userRepository;
@@ -41,8 +41,12 @@ public class PasswordProcessor extends BaseTagProcessor {
 	if (users != null && !users.isEmpty()) {
 	    // Send the password in DM
 	    TwitterUser user = users.get(0);
+	    //Change the password
+	    user.setPin(new String(PasswordGenerator.generatePswd()));
+	    userRepository.save(user);
+	    
 	    try {
-		DirectMessage msg = tweetInteractionService.sendDirectMsg("Your access password is " + user.getPin(),
+		DirectMessage msg = tweetInteractionService.sendDirectMsg("PIN reset, your new access password is " + user.getPin(),
 			interactionStatus.getUser().getScreenName());
 		if (msg == null) {
 		    sendFailureTweet(interactionStatus, user);
@@ -54,18 +58,10 @@ public class PasswordProcessor extends BaseTagProcessor {
 	}
     }
 
-    private void sendFailureTweet(Status interactionStatus, TwitterUser user) {
-	try {
-	    tweetInteractionService.sendTweetTo(interactionStatus,
-		    "Unable to send PIN via direct message, follow us Maybe?", null);
-	} catch (TwitterException e) {
-	    e.printStackTrace();
-	}
-    }
 
     @Override
     public String tag() {
-	return PASSWORD;
+	return RESET_PASSWORD;
     }
 
 }

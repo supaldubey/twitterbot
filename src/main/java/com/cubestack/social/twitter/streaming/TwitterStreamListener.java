@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.cubestack.social.event.DirectMessageEvent;
 import com.cubestack.social.event.EventDispatcher;
+import com.cubestack.social.event.FavEvent;
 import com.cubestack.social.event.FollowEvent;
 import com.cubestack.social.twitter.tags.TwitterStatusProcessor;
 
@@ -101,6 +102,12 @@ public class TwitterStreamListener implements UserStreamListener {
     @Override
     public void onFavorite(User source, User target, Status favoritedStatus) {
 	System.out.println("Status onFavorite" + source);
+	FavEvent event = new FavEvent();
+	event.setTwitterId(source.getId());
+	event.setTwitterScreenName(source.getScreenName());
+	event.setStatus(favoritedStatus);
+	
+	eventDispatcher.dispatch(event);
     }
 
     @Override

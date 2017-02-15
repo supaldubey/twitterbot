@@ -1,13 +1,13 @@
 /**
  * 
  */
-package com.cubestack.social.twitter.list;
+package com.cubestack.social.twitter.tags;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.cubestack.social.candidate.TwitterUserCandidate;
-import com.cubestack.social.twitter.tags.BaseTagProcessor;
+import com.cubestack.social.twitter.list.TweetListService;
 
 import twitter4j.Status;
 

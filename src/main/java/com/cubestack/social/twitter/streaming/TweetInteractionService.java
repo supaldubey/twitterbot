@@ -62,4 +62,8 @@ public class TweetInteractionService {
 	return twitter.sendDirectMessage(userId, text);
     }
 
+    public void deleteStatus(long statusId) throws TwitterException {
+	twitter.destroyStatus(statusId);
+    }
+
 }
