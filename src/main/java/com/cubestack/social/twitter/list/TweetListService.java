@@ -43,16 +43,16 @@ public class TweetListService {
 
 	// In case we need to point out to interaction tweet (SOURCE)
 	tweet.setInReplyToTweetId(interactionStatus.getId());
-	
+
 	tweet.setList(tweetList);
 
 	tweetList.getTweets().add(tweet);
 
-	persistantService.saveTweep(tweeple);
+	persistantService.saveUser(tweeple);
     }
 
     public List<Tweet> findTweets(long userId, String category, int page) {
-	TwitterUser twitterUser = persistantService.findTweepByTwitterId(userId);
+	TwitterUser twitterUser = persistantService.findUserByTwitterId(userId);
 
 	for (TweetList list : twitterUser.getTweetLists()) {
 	    if (category.equalsIgnoreCase(list.getName())) {
@@ -95,7 +95,7 @@ public class TweetListService {
     }
 
     public TwitterUser find(TwitterUserCandidate candidate) {
-	TwitterUser tweeple = persistantService.findTweepByTwitterId(candidate.getTwitterId());
+	TwitterUser tweeple = persistantService.findUserByTwitterId(candidate.getTwitterId());
 	// Save Tweep
 	if (tweeple == null) {
 	    tweeple = new TwitterUser();

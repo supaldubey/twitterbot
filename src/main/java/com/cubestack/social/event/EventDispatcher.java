@@ -19,8 +19,7 @@ public class EventDispatcher {
     @Autowired
     private EventBus eventBus;
 
-    
-    public void dispatch (TwitterEvent  event) {
+    public void dispatch(TwitterEvent event) {
 	eventBus.notify(event.getType(), Event.wrap(event));
     }
 }

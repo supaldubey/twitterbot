@@ -9,8 +9,8 @@ package com.cubestack.social.event;
  */
 public class DirectMessageEvent extends TwitterEvent {
 
-    public DirectMessageEvent () {
+    public DirectMessageEvent() {
 	setType("DM");
     }
-    
+
 }

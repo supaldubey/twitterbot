@@ -40,7 +40,7 @@ public class TweetInteractionService {
 
 	twitter.updateStatus(statusUpdate);
     }
-    
+
     public void sendTweetTo(Status root, String text, File entity) throws TwitterException {
 	StatusUpdate statusUpdate = new StatusUpdate(text);
 

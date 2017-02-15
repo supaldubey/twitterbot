@@ -1,37 +1,39 @@
 /**
  * 
  */
-package com.cubestack.social.event;
+package com.cubestack.social.event.receiver;
+
+import static reactor.bus.selector.Selectors.$;
 
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.cubestack.social.event.DirectMessageEvent;
+
 import reactor.bus.Event;
 import reactor.bus.EventBus;
 import reactor.fn.Consumer;
-
-import static reactor.bus.selector.Selectors.$;
 
 /**
  * @author Supal Dubey
  *
  */
 @Component
-public class FollowReceiver implements Consumer<Event<FollowEvent>> {
-    
+public class DirectMessageReciever implements Consumer<Event<DirectMessageEvent>> {
+
     @Autowired
     private EventBus bus;
-    
+
     @PostConstruct
     public void init() {
-	bus.on($("Follow"), this);
+	bus.on($("DM"), this);
     }
 
     @Override
-    public void accept(Event<FollowEvent> event) {
-	System.out.println("Followed");
+    public void accept(Event<DirectMessageEvent> t) {
+	System.out.println("DM");
     }
 
 }

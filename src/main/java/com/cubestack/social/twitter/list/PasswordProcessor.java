@@ -42,7 +42,8 @@ public class PasswordProcessor extends BaseTagProcessor {
 	    // Send the password in DM
 	    TwitterUser user = users.get(0);
 	    try {
-		DirectMessage msg = tweetInteractionService.sendDirectMsg("Your access password is " + user.getPin(), interactionStatus.getUser().getScreenName());
+		DirectMessage msg = tweetInteractionService.sendDirectMsg("Your access password is " + user.getPin(),
+			interactionStatus.getUser().getScreenName());
 		if (msg == null) {
 		    sendFailureTweet(interactionStatus, user);
 		}
@@ -55,7 +56,8 @@ public class PasswordProcessor extends BaseTagProcessor {
 
     private void sendFailureTweet(Status interactionStatus, TwitterUser user) {
 	try {
-	    tweetInteractionService.sendTweetTo(interactionStatus, "Unable to send PIN via direct message, follow us Maybe?", null);
+	    tweetInteractionService.sendTweetTo(interactionStatus,
+		    "Unable to send PIN via direct message, follow us Maybe?", null);
 	} catch (TwitterException e) {
 	    e.printStackTrace();
 	}

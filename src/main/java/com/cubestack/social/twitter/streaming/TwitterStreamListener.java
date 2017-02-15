@@ -33,7 +33,7 @@ public class TwitterStreamListener implements UserStreamListener {
 
     @Autowired
     private TwitterStatusProcessor statusProcessor;
-    
+
     @Autowired
     private EventDispatcher eventDispatcher;
 
@@ -110,7 +110,13 @@ public class TwitterStreamListener implements UserStreamListener {
 
     @Override
     public void onFollow(User source, User followedUser) {
-	eventDispatcher.dispatch(new FollowEvent());
+
+	FollowEvent event = new FollowEvent();
+	event.setTwitterId(source.getId());
+	event.setTwitterScreenName(source.getScreenName());
+	event.setTwitterUser(source);
+
+	eventDispatcher.dispatch(event);
     }
 
     @Override

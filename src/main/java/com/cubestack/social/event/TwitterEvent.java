@@ -8,35 +8,42 @@ package com.cubestack.social.event;
  *
  */
 public class TwitterEvent {
-    
+
     private long twitterId;
     private String twitterScreenName;
     private String message;
     private String type;
-    
+
     public long getTwitterId() {
-        return twitterId;
+	return twitterId;
     }
+
     public void setTwitterId(long twitterId) {
-        this.twitterId = twitterId;
+	this.twitterId = twitterId;
     }
+
     public String getTwitterScreenName() {
-        return twitterScreenName;
+	return twitterScreenName;
     }
+
     public void setTwitterScreenName(String twitterScreenName) {
-        this.twitterScreenName = twitterScreenName;
+	this.twitterScreenName = twitterScreenName;
     }
+
     public String getMessage() {
-        return message;
+	return message;
     }
+
     public void setMessage(String message) {
-        this.message = message;
+	this.message = message;
     }
+
     public String getType() {
 	return type;
     }
+
     public void setType(String type) {
 	this.type = type;
     }
-    
+
 }
