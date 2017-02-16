@@ -34,8 +34,8 @@ public class TweetListService {
     private TweetService tweetService;
 
     public void addTweetToList(String category, Status interactionStatus, TwitterUserCandidate candidate) {
-	TwitterUser tweeple = find(candidate);
-	TweetList tweetList = find(category.toUpperCase(), tweeple);
+	TwitterUser twitterUser = find(candidate);
+	TweetList tweetList = find(category.toUpperCase(), twitterUser);
 
 	Tweet tweet = new Tweet();
 	tweet.setText(candidate.getStatus().getText());
@@ -48,7 +48,7 @@ public class TweetListService {
 
 	tweetList.getTweets().add(tweet);
 
-	persistantService.saveUser(tweeple);
+	persistantService.saveUser(twitterUser);
     }
 
     public List<Tweet> findTweets(long userId, String category, int page) {
@@ -106,5 +106,20 @@ public class TweetListService {
 	    tweeple.setTweetLists(new LinkedList<TweetList>());
 	}
 	return tweeple;
+    }
+
+    public List<Tweet> findTweets(String screenName, String listName, int page) {
+
+	TwitterUser twitterUser = persistantService.findUserByScreenName(screenName);
+
+	for (TweetList list : twitterUser.getTweetLists()) {
+	    if (listName.equalsIgnoreCase(list.getName())) {
+		return tweetService.findTweets(list, page);
+	    }
+	}
+
+	// Return empty
+	return new LinkedList<>();
+    
     }
 }

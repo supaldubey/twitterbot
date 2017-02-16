@@ -48,4 +48,8 @@ public class TwitterUserPersistantService {
 	return repository.save(twitterUser);
     }
 
+    public TwitterUser findUserByScreenName(String screenName) {
+	return repository.findUserByScreenName(screenName);
+    }
+
 }

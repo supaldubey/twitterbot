@@ -3,12 +3,28 @@
  */
 package com.cubestack.social.web;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.cubestack.social.candidate.TweetCandidate;
+import com.cubestack.social.candidate.TwitterUserCandidate;
+import com.cubestack.social.converter.TweetConverter;
+import com.cubestack.social.converter.TwitterUserConverter;
+import com.cubestack.social.model.Tweet;
+import com.cubestack.social.model.TwitterUser;
+import com.cubestack.social.persistance.TwitterUserPersistantService;
+import com.cubestack.social.twitter.list.TweetListService;
+import com.cubestack.social.util.GenericUtil;
 
 /**
  * @author supal
@@ -18,6 +34,30 @@ import org.springframework.web.bind.annotation.RestController;
 public class AppRestController {
 
     private static final String MSG_SEPARATOR = ", ";
+    
+    @Autowired
+    private TwitterUserPersistantService persistantService ;
+    
+    @Autowired
+    private TweetListService tweetListService ;
+    
+    @RequestMapping(path = "{screenName}/lists", method = RequestMethod.GET)
+    public TwitterUserCandidate findByUser(@PathVariable("screenName") String screenName) {
+	TwitterUser user = persistantService.findUserByScreenName(screenName);
+	if(user != null) {
+	    return TwitterUserConverter.convertToCandidate(user);
+	}
+	return null;
+    }
+    
+    @RequestMapping(path = "{screenName}/{listName}/{pageIndex}", method = RequestMethod.GET)
+    public List<TweetCandidate> findTweets(@PathVariable("screenName") String screenName, @PathVariable("listName") String listName,
+	    @PathVariable("pageIndex") String pageIndex) {
+	int pageNo = GenericUtil.parseSafe(pageIndex);
+	List<Tweet> tweets = tweetListService.findTweets(screenName, listName, pageNo);
+	
+	return TweetConverter.convertToCandidates(tweets);
+    }
 
     @ExceptionHandler
     public ResponseEntity<Response> handle(Exception exception) {

@@ -3,6 +3,9 @@
  */
 package com.cubestack.social.candidate;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.hibernate.validator.constraints.NotEmpty;
 
 import twitter4j.Status;
@@ -14,15 +17,12 @@ import twitter4j.Status;
 public class TwitterUserCandidate {
 
     private long id;
-
     @NotEmpty(message = "Twitter Id is missing.")
     private long twitterId;
-
     @NotEmpty(message = "Twitter Screen name is missing.")
     private String screenName;
-
+    private List<String> tweetLists = new LinkedList<>();
     private Status status;
-
     private int pin;
 
     public long getId() {
@@ -63,6 +63,14 @@ public class TwitterUserCandidate {
 
     public void setStatus(Status status) {
 	this.status = status;
+    }
+
+    public List<String> getTweetLists() {
+	return tweetLists;
+    }
+
+    public void setTweetLists(List<String> tweetLists) {
+	this.tweetLists = tweetLists;
     }
 
 }
