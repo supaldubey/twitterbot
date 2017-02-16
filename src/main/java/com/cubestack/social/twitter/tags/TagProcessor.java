@@ -11,8 +11,8 @@ import twitter4j.Status;
  */
 public interface TagProcessor {
 
-    public void handle(Status interactionStatus, Status status);
+	public void handle(Status interactionStatus, Status status);
 
-    String tag();
+	String tag();
 
 }

@@ -17,6 +17,6 @@ import com.cubestack.social.model.TweetList;
  */
 public interface TweetRepository extends JpaRepository<Tweet, Long> {
 
-    List<Tweet> findByList(TweetList tweetList, Pageable pageable);
+	List<Tweet> findByList(TweetList tweetList, Pageable pageable);
 
 }

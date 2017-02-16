@@ -26,32 +26,33 @@ import twitter4j.TwitterException;
 @Component
 public class FavReceiver implements Consumer<Event<FavEvent>> {
 
-    @Autowired
-    private EventBus bus;
+	@Autowired
+	private EventBus bus;
 
-    @Autowired
-    private TweetInteractionService tweetInteractionService;
+	@Autowired
+	private TweetInteractionService tweetInteractionService;
 
-    @PostConstruct
-    public void init() {
-	bus.on($("FAV"), this);
-    }
-
-    @Override
-    public void accept(Event<FavEvent> event) {
-	System.out.println("Tweet Faved, delete it");
-	FavEvent favEvent = event.getData();
-	Status status = favEvent.getStatus();
-	
-	//Proceed only if the person Fav-ing the tweet is the one tweet is replied to.
-	if (status.getInReplyToUserId() != 0 && status.getInReplyToUserId() == favEvent.getTwitterId()) {
-	    try {
-		tweetInteractionService.deleteStatus(favEvent.getStatus().getId());
-	    } catch (TwitterException e) {
-		e.printStackTrace();
-	    }
+	@PostConstruct
+	public void init() {
+		bus.on($("FAV"), this);
 	}
 
-    }
+	@Override
+	public void accept(Event<FavEvent> event) {
+		System.out.println("Tweet Faved, delete it");
+		FavEvent favEvent = event.getData();
+		Status status = favEvent.getStatus();
+
+		// Proceed only if the person Fav-ing the tweet is the one tweet is
+		// replied to.
+		if (status.getInReplyToUserId() != 0 && status.getInReplyToUserId() == favEvent.getTwitterId()) {
+			try {
+				tweetInteractionService.deleteStatus(favEvent.getStatus().getId());
+			} catch (TwitterException e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
 
 }

@@ -14,9 +14,9 @@ import com.cubestack.social.model.TwitterUser;
  *
  */
 public interface TwitterUserRepository extends JpaRepository<TwitterUser, Long> {
-    List<TwitterUser> findByScreenNameIgnoreCase(String value);
+	List<TwitterUser> findByScreenNameIgnoreCase(String value);
 
-    List<TwitterUser> findByTwitterId(long value);
+	List<TwitterUser> findByTwitterId(long value);
 
-    TwitterUser findUserByScreenName(String screenName);
+	TwitterUser findUserByScreenName(String screenName);
 }

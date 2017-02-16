@@ -13,17 +13,17 @@ import com.cubestack.social.model.TwitterUser;
  */
 public class TwitterUserConverter {
 
-    public static TwitterUserCandidate convertToCandidate(TwitterUser twitterUser) {
-	TwitterUserCandidate candidate = new TwitterUserCandidate();
-	
-	candidate.setId(twitterUser.getId());
-	candidate.setScreenName(twitterUser.getScreenName());
-	candidate.setTwitterId(twitterUser.getTwitterId());
-	
-	for(TweetList tweetList: twitterUser.getTweetLists()) {
-	    candidate.getTweetLists().add(tweetList.getName());
+	public static TwitterUserCandidate convertToCandidate(TwitterUser twitterUser) {
+		TwitterUserCandidate candidate = new TwitterUserCandidate();
+
+		candidate.setId(twitterUser.getId());
+		candidate.setScreenName(twitterUser.getScreenName());
+		candidate.setTwitterId(twitterUser.getTwitterId());
+
+		for (TweetList tweetList : twitterUser.getTweetLists()) {
+			candidate.getTweetLists().add(tweetList.getName());
+		}
+
+		return candidate;
 	}
-	
-	return candidate;
-    }
 }

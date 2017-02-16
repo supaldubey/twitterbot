@@ -24,26 +24,26 @@ import twitter4j.TwitterFactory;
 @EnableTransactionManagement
 public class AppConfig {
 
-    @Bean
-    public ServletRegistrationBean h2servletRegistration() {
-	ServletRegistrationBean registration = new ServletRegistrationBean(new WebServlet());
-	registration.addUrlMappings("/console/*");
-	return registration;
-    }
+	@Bean
+	public ServletRegistrationBean h2servletRegistration() {
+		ServletRegistrationBean registration = new ServletRegistrationBean(new WebServlet());
+		registration.addUrlMappings("/console/*");
+		return registration;
+	}
 
-    @Bean
-    public Twitter twitter() {
-	return new TwitterFactory().getInstance();
-    }
+	@Bean
+	public Twitter twitter() {
+		return new TwitterFactory().getInstance();
+	}
 
-    @Bean
-    Environment env() {
-	return Environment.initializeIfEmpty().assignErrorJournal();
-    }
+	@Bean
+	Environment env() {
+		return Environment.initializeIfEmpty().assignErrorJournal();
+	}
 
-    @Bean
-    EventBus createEventBus(Environment env) {
-	return EventBus.create(env, Environment.THREAD_POOL);
-    }
+	@Bean
+	EventBus createEventBus(Environment env) {
+		return EventBus.create(env, Environment.THREAD_POOL);
+	}
 
 }

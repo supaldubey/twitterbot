@@ -21,49 +21,49 @@ import twitter4j.TwitterException;
 @Service
 public class TweetInteractionService {
 
-    @Autowired
-    private Twitter twitter;
+	@Autowired
+	private Twitter twitter;
 
-    public void sendTweet(Status root, String text, File entity) throws TwitterException {
-	StatusUpdate statusUpdate = new StatusUpdate(text);
+	public void sendTweet(Status root, String text, File entity) throws TwitterException {
+		StatusUpdate statusUpdate = new StatusUpdate(text);
 
-	if (root != null && root.getInReplyToStatusId() > 0) {
-	    // Add screen name to make sure twitter acknowledges it as a reply
-	    statusUpdate = new StatusUpdate("@" + root.getInReplyToScreenName() + " " + text);
-	    statusUpdate.setInReplyToStatusId(root.getInReplyToStatusId());
+		if (root != null && root.getInReplyToStatusId() > 0) {
+			// Add screen name to make sure twitter acknowledges it as a reply
+			statusUpdate = new StatusUpdate("@" + root.getInReplyToScreenName() + " " + text);
+			statusUpdate.setInReplyToStatusId(root.getInReplyToStatusId());
+		}
+
+		// Attach the unsplsah image
+		if (entity != null) {
+			statusUpdate.setMedia(entity);
+		}
+
+		twitter.updateStatus(statusUpdate);
 	}
 
-	// Attach the unsplsah image
-	if (entity != null) {
-	    statusUpdate.setMedia(entity);
+	public void sendTweetTo(Status root, String text, File entity) throws TwitterException {
+		StatusUpdate statusUpdate = new StatusUpdate(text);
+
+		if (root != null) {
+			// Add screen name to make sure twitter acknowledges it as a reply
+			statusUpdate = new StatusUpdate("@" + root.getUser().getScreenName() + " " + text);
+			statusUpdate.setInReplyToStatusId(root.getId());
+		}
+
+		// Attach the unsplsah image
+		if (entity != null) {
+			statusUpdate.setMedia(entity);
+		}
+
+		twitter.updateStatus(statusUpdate);
 	}
 
-	twitter.updateStatus(statusUpdate);
-    }
-
-    public void sendTweetTo(Status root, String text, File entity) throws TwitterException {
-	StatusUpdate statusUpdate = new StatusUpdate(text);
-
-	if (root != null) {
-	    // Add screen name to make sure twitter acknowledges it as a reply
-	    statusUpdate = new StatusUpdate("@" + root.getUser().getScreenName() + " " + text);
-	    statusUpdate.setInReplyToStatusId(root.getId());
+	public DirectMessage sendDirectMsg(String text, String userId) throws TwitterException {
+		return twitter.sendDirectMessage(userId, text);
 	}
 
-	// Attach the unsplsah image
-	if (entity != null) {
-	    statusUpdate.setMedia(entity);
+	public void deleteStatus(long statusId) throws TwitterException {
+		twitter.destroyStatus(statusId);
 	}
-
-	twitter.updateStatus(statusUpdate);
-    }
-
-    public DirectMessage sendDirectMsg(String text, String userId) throws TwitterException {
-	return twitter.sendDirectMessage(userId, text);
-    }
-
-    public void deleteStatus(long statusId) throws TwitterException {
-	twitter.destroyStatus(statusId);
-    }
 
 }

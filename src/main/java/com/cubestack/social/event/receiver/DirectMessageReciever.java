@@ -23,17 +23,17 @@ import reactor.fn.Consumer;
 @Component
 public class DirectMessageReciever implements Consumer<Event<DirectMessageEvent>> {
 
-    @Autowired
-    private EventBus bus;
+	@Autowired
+	private EventBus bus;
 
-    @PostConstruct
-    public void init() {
-	bus.on($("DM"), this);
-    }
+	@PostConstruct
+	public void init() {
+		bus.on($("DM"), this);
+	}
 
-    @Override
-    public void accept(Event<DirectMessageEvent> t) {
-	System.out.println("DM");
-    }
+	@Override
+	public void accept(Event<DirectMessageEvent> t) {
+		System.out.println("DM");
+	}
 
 }

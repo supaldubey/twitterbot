@@ -10,19 +10,19 @@ import twitter4j.Status;
  *
  */
 public class FavEvent extends TwitterEvent {
-    
-    private Status status;
 
-    public FavEvent() {
-	setType("FAV");
-    }
+	private Status status;
 
-    public Status getStatus() {
-	return status;
-    }
+	public FavEvent() {
+		setType("FAV");
+	}
 
-    public void setStatus(Status status) {
-	this.status = status;
-    }
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
 
 }

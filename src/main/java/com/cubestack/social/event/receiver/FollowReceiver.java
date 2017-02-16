@@ -27,36 +27,38 @@ import static reactor.bus.selector.Selectors.$;
 @Component
 public class FollowReceiver implements Consumer<Event<FollowEvent>> {
 
-    @Autowired
-    private EventBus bus;
+	@Autowired
+	private EventBus bus;
 
-    @Autowired
-    private TweetInteractionService tweetInteractionService;
+	@Autowired
+	private TweetInteractionService tweetInteractionService;
 
-    @Autowired
-    private TwitterUserPersistantService twitterUserPersistantService;
+	@Autowired
+	private TwitterUserPersistantService twitterUserPersistantService;
 
-    @PostConstruct
-    public void init() {
-	bus.on($("Follow"), this);
-    }
-
-    @Override
-    public void accept(Event<FollowEvent> event) {
-	System.out.println("Followed");
-	FollowEvent followEvent = event.getData();
-	String screenName = followEvent.getTwitterScreenName();
-
-	TwitterUser twitterUser = twitterUserPersistantService.findUserByTwitterId(followEvent.getTwitterId());
-	if (twitterUser == null) {
-	    twitterUser = twitterUserPersistantService.saveUser(followEvent.getTwitterUser());
+	@PostConstruct
+	public void init() {
+		bus.on($("Follow"), this);
 	}
 
-	try {
-	    tweetInteractionService.sendDirectMsg("Welcome! Thanks for the follow, Your account is created, your PIN is: " + twitterUser.getPin(), screenName);
-	} catch (TwitterException e) {
-	    e.printStackTrace();
+	@Override
+	public void accept(Event<FollowEvent> event) {
+		System.out.println("Followed");
+		FollowEvent followEvent = event.getData();
+		String screenName = followEvent.getTwitterScreenName();
+
+		TwitterUser twitterUser = twitterUserPersistantService.findUserByTwitterId(followEvent.getTwitterId());
+		if (twitterUser == null) {
+			twitterUser = twitterUserPersistantService.saveUser(followEvent.getTwitterUser());
+		}
+
+		try {
+			tweetInteractionService.sendDirectMsg(
+					"Welcome! Thanks for the follow, Your account is created, your PIN is: " + twitterUser.getPin(),
+					screenName);
+		} catch (TwitterException e) {
+			e.printStackTrace();
+		}
 	}
-    }
 
 }

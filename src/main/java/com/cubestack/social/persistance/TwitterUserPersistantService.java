@@ -21,35 +21,35 @@ import twitter4j.User;
 @Service
 public class TwitterUserPersistantService {
 
-    @Autowired
-    private TwitterUserRepository repository;
+	@Autowired
+	private TwitterUserRepository repository;
 
-    public TwitterUser findUserByTwitterId(long twitterId) {
-	List<TwitterUser> users = repository.findByTwitterId(twitterId);
-	if (users != null && !users.isEmpty()) {
-	    // Should be always one
-	    return users.get(0);
+	public TwitterUser findUserByTwitterId(long twitterId) {
+		List<TwitterUser> users = repository.findByTwitterId(twitterId);
+		if (users != null && !users.isEmpty()) {
+			// Should be always one
+			return users.get(0);
+		}
+		return null;
 	}
-	return null;
-    }
 
-    public TwitterUser saveUser(User user) {
-	TwitterUser twitterUser = new TwitterUser();
-	twitterUser.setName(user.getScreenName());
-	twitterUser.setScreenName(user.getScreenName());
-	twitterUser.setTwitterId(user.getId());
+	public TwitterUser saveUser(User user) {
+		TwitterUser twitterUser = new TwitterUser();
+		twitterUser.setName(user.getScreenName());
+		twitterUser.setScreenName(user.getScreenName());
+		twitterUser.setTwitterId(user.getId());
 
-	twitterUser.setTweetLists(new LinkedList<TweetList>());
+		twitterUser.setTweetLists(new LinkedList<TweetList>());
 
-	return repository.save(twitterUser);
-    }
+		return repository.save(twitterUser);
+	}
 
-    public TwitterUser saveUser(TwitterUser twitterUser) {
-	return repository.save(twitterUser);
-    }
+	public TwitterUser saveUser(TwitterUser twitterUser) {
+		return repository.save(twitterUser);
+	}
 
-    public TwitterUser findUserByScreenName(String screenName) {
-	return repository.findUserByScreenName(screenName);
-    }
+	public TwitterUser findUserByScreenName(String screenName) {
+		return repository.findUserByScreenName(screenName);
+	}
 
 }

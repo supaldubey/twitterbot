@@ -21,12 +21,12 @@ import com.cubestack.social.persistance.TweetRepository;
 @Service
 public class TweetService {
 
-    @Autowired
-    private TweetRepository tweetRepository;
+	@Autowired
+	private TweetRepository tweetRepository;
 
-    public List<Tweet> findTweets(TweetList tweetList, int page) {
-	Pageable pageable = new PageRequest(page, 10);
-	return tweetRepository.findByList(tweetList, pageable);
-    }
+	public List<Tweet> findTweets(TweetList tweetList, int page) {
+		Pageable pageable = new PageRequest(page, 10);
+		return tweetRepository.findByList(tweetList, pageable);
+	}
 
 }

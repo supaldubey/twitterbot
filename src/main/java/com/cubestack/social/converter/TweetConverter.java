@@ -15,21 +15,21 @@ import com.cubestack.social.model.Tweet;
  */
 public class TweetConverter {
 
-    public static TweetCandidate convertToCandidate(Tweet tweet) {
-	TweetCandidate candidate = new TweetCandidate();
-	
-	candidate.setId(tweet.getId());
-	candidate.setStatusText(tweet.getText());
-	candidate.setTweetId(tweet.getTweetId());
-	
-	return candidate;
-    }
-    
-    public static List<TweetCandidate> convertToCandidates(List<Tweet> tweets) {
-	List<TweetCandidate> candidates = new LinkedList<>();
-	for(Tweet tweet: tweets) {
-	    candidates.add(convertToCandidate(tweet));
+	public static TweetCandidate convertToCandidate(Tweet tweet) {
+		TweetCandidate candidate = new TweetCandidate();
+
+		candidate.setId(tweet.getId());
+		candidate.setStatusText(tweet.getText());
+		candidate.setTweetId(tweet.getTweetId());
+
+		return candidate;
 	}
-	return candidates;
-    }
+
+	public static List<TweetCandidate> convertToCandidates(List<Tweet> tweets) {
+		List<TweetCandidate> candidates = new LinkedList<>();
+		for (Tweet tweet : tweets) {
+			candidates.add(convertToCandidate(tweet));
+		}
+		return candidates;
+	}
 }

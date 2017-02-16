@@ -16,61 +16,61 @@ import twitter4j.Status;
  */
 public class TwitterUserCandidate {
 
-    private long id;
-    @NotEmpty(message = "Twitter Id is missing.")
-    private long twitterId;
-    @NotEmpty(message = "Twitter Screen name is missing.")
-    private String screenName;
-    private List<String> tweetLists = new LinkedList<>();
-    private Status status;
-    private int pin;
+	private long id;
+	@NotEmpty(message = "Twitter Id is missing.")
+	private long twitterId;
+	@NotEmpty(message = "Twitter Screen name is missing.")
+	private String screenName;
+	private List<String> tweetLists = new LinkedList<>();
+	private Status status;
+	private int pin;
 
-    public long getId() {
-	return id;
-    }
+	public long getId() {
+		return id;
+	}
 
-    public void setId(long id) {
-	this.id = id;
-    }
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    public long getTwitterId() {
-	return twitterId;
-    }
+	public long getTwitterId() {
+		return twitterId;
+	}
 
-    public void setTwitterId(long twitterId) {
-	this.twitterId = twitterId;
-    }
+	public void setTwitterId(long twitterId) {
+		this.twitterId = twitterId;
+	}
 
-    public String getScreenName() {
-	return screenName;
-    }
+	public String getScreenName() {
+		return screenName;
+	}
 
-    public void setScreenName(String screenName) {
-	this.screenName = screenName;
-    }
+	public void setScreenName(String screenName) {
+		this.screenName = screenName;
+	}
 
-    public int getPin() {
-	return pin;
-    }
+	public int getPin() {
+		return pin;
+	}
 
-    public void setPin(int pin) {
-	this.pin = pin;
-    }
+	public void setPin(int pin) {
+		this.pin = pin;
+	}
 
-    public Status getStatus() {
-	return status;
-    }
+	public Status getStatus() {
+		return status;
+	}
 
-    public void setStatus(Status status) {
-	this.status = status;
-    }
+	public void setStatus(Status status) {
+		this.status = status;
+	}
 
-    public List<String> getTweetLists() {
-	return tweetLists;
-    }
+	public List<String> getTweetLists() {
+		return tweetLists;
+	}
 
-    public void setTweetLists(List<String> tweetLists) {
-	this.tweetLists = tweetLists;
-    }
+	public void setTweetLists(List<String> tweetLists) {
+		this.tweetLists = tweetLists;
+	}
 
 }

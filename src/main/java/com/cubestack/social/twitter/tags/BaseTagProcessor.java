@@ -13,12 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public abstract class BaseTagProcessor implements TagProcessor {
 
-    @Autowired
-    private TagRegistry tagRegistry;
+	@Autowired
+	private TagRegistry tagRegistry;
 
-    @PostConstruct
-    public void init() {
-	tagRegistry.register(this);
-    }
+	@PostConstruct
+	public void init() {
+		tagRegistry.register(this);
+	}
 
 }

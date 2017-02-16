@@ -33,51 +33,51 @@ import com.cubestack.social.util.GenericUtil;
 @RestController
 public class AppRestController {
 
-    private static final String MSG_SEPARATOR = ", ";
-    
-    @Autowired
-    private TwitterUserPersistantService persistantService ;
-    
-    @Autowired
-    private TweetListService tweetListService ;
-    
-    @RequestMapping(path = "{screenName}/lists", method = RequestMethod.GET)
-    public TwitterUserCandidate findByUser(@PathVariable("screenName") String screenName) {
-	TwitterUser user = persistantService.findUserByScreenName(screenName);
-	if(user != null) {
-	    return TwitterUserConverter.convertToCandidate(user);
+	private static final String MSG_SEPARATOR = ", ";
+
+	@Autowired
+	private TwitterUserPersistantService persistantService;
+
+	@Autowired
+	private TweetListService tweetListService;
+
+	@RequestMapping(path = "{screenName}/lists", method = RequestMethod.GET)
+	public TwitterUserCandidate findByUser(@PathVariable("screenName") String screenName) {
+		TwitterUser user = persistantService.findUserByScreenName(screenName);
+		if (user != null) {
+			return TwitterUserConverter.convertToCandidate(user);
+		}
+		return null;
 	}
-	return null;
-    }
-    
-    @RequestMapping(path = "{screenName}/{listName}/{pageIndex}", method = RequestMethod.GET)
-    public List<TweetCandidate> findTweets(@PathVariable("screenName") String screenName, @PathVariable("listName") String listName,
-	    @PathVariable("pageIndex") String pageIndex) {
-	int pageNo = GenericUtil.parseSafe(pageIndex);
-	List<Tweet> tweets = tweetListService.findTweets(screenName, listName, pageNo);
-	
-	return TweetConverter.convertToCandidates(tweets);
-    }
 
-    @ExceptionHandler
-    public ResponseEntity<Response> handle(Exception exception) {
-	exception.printStackTrace();
+	@RequestMapping(path = "{screenName}/{listName}/{pageIndex}", method = RequestMethod.GET)
+	public List<TweetCandidate> findTweets(@PathVariable("screenName") String screenName,
+			@PathVariable("listName") String listName, @PathVariable("pageIndex") String pageIndex) {
+		int pageNo = GenericUtil.parseSafe(pageIndex);
+		List<Tweet> tweets = tweetListService.findTweets(screenName, listName, pageNo);
 
-	Response response = new Response();
-	response.setSuccess(false);
-
-	if (exception instanceof MethodArgumentNotValidException) {
-	    MethodArgumentNotValidException validationException = (MethodArgumentNotValidException) exception;
-	    StringBuilder errorMsg = new StringBuilder();
-	    for (FieldError error : validationException.getBindingResult().getFieldErrors()) {
-		errorMsg.append(error.getDefaultMessage()).append(MSG_SEPARATOR);
-	    }
-	    // Trim the last Comma
-	    errorMsg = new StringBuilder(errorMsg.substring(0, errorMsg.length() - 2));
-	    response.setMessage(errorMsg.toString());
-	} else {
-	    response.setMessage(exception.getMessage());
+		return TweetConverter.convertToCandidates(tweets);
 	}
-	return new ResponseEntity<Response>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+
+	@ExceptionHandler
+	public ResponseEntity<Response> handle(Exception exception) {
+		exception.printStackTrace();
+
+		Response response = new Response();
+		response.setSuccess(false);
+
+		if (exception instanceof MethodArgumentNotValidException) {
+			MethodArgumentNotValidException validationException = (MethodArgumentNotValidException) exception;
+			StringBuilder errorMsg = new StringBuilder();
+			for (FieldError error : validationException.getBindingResult().getFieldErrors()) {
+				errorMsg.append(error.getDefaultMessage()).append(MSG_SEPARATOR);
+			}
+			// Trim the last Comma
+			errorMsg = new StringBuilder(errorMsg.substring(0, errorMsg.length() - 2));
+			response.setMessage(errorMsg.toString());
+		} else {
+			response.setMessage(exception.getMessage());
+		}
+		return new ResponseEntity<Response>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 }

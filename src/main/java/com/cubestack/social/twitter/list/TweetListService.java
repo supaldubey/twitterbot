@@ -27,99 +27,99 @@ import twitter4j.Status;
 @Transactional
 public class TweetListService {
 
-    @Autowired
-    private TwitterUserPersistantService persistantService;
+	@Autowired
+	private TwitterUserPersistantService persistantService;
 
-    @Autowired
-    private TweetService tweetService;
+	@Autowired
+	private TweetService tweetService;
 
-    public void addTweetToList(String category, Status interactionStatus, TwitterUserCandidate candidate) {
-	TwitterUser twitterUser = find(candidate);
-	TweetList tweetList = find(category.toUpperCase(), twitterUser);
+	public void addTweetToList(String category, Status interactionStatus, TwitterUserCandidate candidate) {
+		TwitterUser twitterUser = find(candidate);
+		TweetList tweetList = find(category.toUpperCase(), twitterUser);
 
-	Tweet tweet = new Tweet();
-	tweet.setText(candidate.getStatus().getText());
-	tweet.setTweetId(candidate.getStatus().getId());
+		Tweet tweet = new Tweet();
+		tweet.setText(candidate.getStatus().getText());
+		tweet.setTweetId(candidate.getStatus().getId());
 
-	// In case we need to point out to interaction tweet (SOURCE)
-	tweet.setInReplyToTweetId(interactionStatus.getId());
+		// In case we need to point out to interaction tweet (SOURCE)
+		tweet.setInReplyToTweetId(interactionStatus.getId());
 
-	tweet.setList(tweetList);
+		tweet.setList(tweetList);
 
-	tweetList.getTweets().add(tweet);
+		tweetList.getTweets().add(tweet);
 
-	persistantService.saveUser(twitterUser);
-    }
-
-    public List<Tweet> findTweets(long userId, String category, int page) {
-	TwitterUser twitterUser = persistantService.findUserByTwitterId(userId);
-
-	for (TweetList list : twitterUser.getTweetLists()) {
-	    if (category.equalsIgnoreCase(list.getName())) {
-		return tweetService.findTweets(list, page);
-	    }
+		persistantService.saveUser(twitterUser);
 	}
 
-	// Return empty
-	return new LinkedList<>();
-    }
+	public List<Tweet> findTweets(long userId, String category, int page) {
+		TwitterUser twitterUser = persistantService.findUserByTwitterId(userId);
 
-    private TweetList find(String category, TwitterUser twitterUser) {
-
-	TweetList list = null;
-	List<TweetList> tweetLists = twitterUser.getTweetLists();
-
-	if (tweetLists == null || tweetLists.isEmpty()) {
-	    List<TweetList> tList = new LinkedList<>();
-
-	    list = new TweetList();
-	    list.setName(category);
-	    tList.add(list);
-	    twitterUser.setTweetLists(tList);
-	} else {
-	    for (TweetList tweetList : tweetLists) {
-		if (category.trim().toUpperCase().equals(tweetList.getName())) {
-		    list = tweetList;
-		    break;
+		for (TweetList list : twitterUser.getTweetLists()) {
+			if (category.equalsIgnoreCase(list.getName())) {
+				return tweetService.findTweets(list, page);
+			}
 		}
-	    }
 
-	    if (list == null) {
-		list = new TweetList();
-		list.setName(category);
-		tweetLists.add(list);
-	    }
+		// Return empty
+		return new LinkedList<>();
 	}
 
-	return list;
-    }
+	private TweetList find(String category, TwitterUser twitterUser) {
 
-    public TwitterUser find(TwitterUserCandidate candidate) {
-	TwitterUser tweeple = persistantService.findUserByTwitterId(candidate.getTwitterId());
-	// Save Tweep
-	if (tweeple == null) {
-	    tweeple = new TwitterUser();
-	    tweeple.setName(candidate.getScreenName());
-	    tweeple.setScreenName(candidate.getScreenName());
-	    tweeple.setTwitterId(candidate.getTwitterId());
+		TweetList list = null;
+		List<TweetList> tweetLists = twitterUser.getTweetLists();
 
-	    tweeple.setTweetLists(new LinkedList<TweetList>());
+		if (tweetLists == null || tweetLists.isEmpty()) {
+			List<TweetList> tList = new LinkedList<>();
+
+			list = new TweetList();
+			list.setName(category);
+			tList.add(list);
+			twitterUser.setTweetLists(tList);
+		} else {
+			for (TweetList tweetList : tweetLists) {
+				if (category.trim().toUpperCase().equals(tweetList.getName())) {
+					list = tweetList;
+					break;
+				}
+			}
+
+			if (list == null) {
+				list = new TweetList();
+				list.setName(category);
+				tweetLists.add(list);
+			}
+		}
+
+		return list;
 	}
-	return tweeple;
-    }
 
-    public List<Tweet> findTweets(String screenName, String listName, int page) {
+	public TwitterUser find(TwitterUserCandidate candidate) {
+		TwitterUser tweeple = persistantService.findUserByTwitterId(candidate.getTwitterId());
+		// Save Tweep
+		if (tweeple == null) {
+			tweeple = new TwitterUser();
+			tweeple.setName(candidate.getScreenName());
+			tweeple.setScreenName(candidate.getScreenName());
+			tweeple.setTwitterId(candidate.getTwitterId());
 
-	TwitterUser twitterUser = persistantService.findUserByScreenName(screenName);
-
-	for (TweetList list : twitterUser.getTweetLists()) {
-	    if (listName.equalsIgnoreCase(list.getName())) {
-		return tweetService.findTweets(list, page);
-	    }
+			tweeple.setTweetLists(new LinkedList<TweetList>());
+		}
+		return tweeple;
 	}
 
-	// Return empty
-	return new LinkedList<>();
-    
-    }
+	public List<Tweet> findTweets(String screenName, String listName, int page) {
+
+		TwitterUser twitterUser = persistantService.findUserByScreenName(screenName);
+
+		for (TweetList list : twitterUser.getTweetLists()) {
+			if (listName.equalsIgnoreCase(list.getName())) {
+				return tweetService.findTweets(list, page);
+			}
+		}
+
+		// Return empty
+		return new LinkedList<>();
+
+	}
 }

@@ -15,10 +15,10 @@ import twitter4j.Status;
 @Component
 public class TwitterStatusProcessor {
 
-    @Autowired
-    private TagRegistry registry;
+	@Autowired
+	private TagRegistry registry;
 
-    public void processStatus(Status interactionStatus, Status processingStatus) {
-	registry.handleStream(interactionStatus, processingStatus);
-    }
+	public void processStatus(Status interactionStatus, Status processingStatus) {
+		registry.handleStream(interactionStatus, processingStatus);
+	}
 }

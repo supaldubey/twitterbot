@@ -11,18 +11,18 @@ import twitter4j.User;
  */
 public class FollowEvent extends TwitterEvent {
 
-    private User twitterUser;
+	private User twitterUser;
 
-    public FollowEvent() {
-	setType("Follow");
-    }
+	public FollowEvent() {
+		setType("Follow");
+	}
 
-    public User getTwitterUser() {
-	return twitterUser;
-    }
+	public User getTwitterUser() {
+		return twitterUser;
+	}
 
-    public void setTwitterUser(User twitterUser) {
-	this.twitterUser = twitterUser;
-    }
+	public void setTwitterUser(User twitterUser) {
+		this.twitterUser = twitterUser;
+	}
 
 }

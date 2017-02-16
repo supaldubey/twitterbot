@@ -23,38 +23,38 @@ import javax.persistence.Table;
 @Table(name = "TWEET_LIST")
 public class TweetList {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
 
-    @Column(name = "NAME")
-    private String name;
+	@Column(name = "NAME")
+	private String name;
 
-    @OneToMany(cascade = { CascadeType.ALL }) // LAZY
-    private List<Tweet> tweets = new LinkedList<Tweet>();
+	@OneToMany(cascade = { CascadeType.ALL }) // LAZY
+	private List<Tweet> tweets = new LinkedList<Tweet>();
 
-    public long getId() {
-	return id;
-    }
+	public long getId() {
+		return id;
+	}
 
-    public void setId(long id) {
-	this.id = id;
-    }
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    public String getName() {
-	return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-	this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public List<Tweet> getTweets() {
-	return tweets;
-    }
+	public List<Tweet> getTweets() {
+		return tweets;
+	}
 
-    public void setTweets(List<Tweet> tweets) {
-	this.tweets = tweets;
-    }
+	public void setTweets(List<Tweet> tweets) {
+		this.tweets = tweets;
+	}
 
 }
