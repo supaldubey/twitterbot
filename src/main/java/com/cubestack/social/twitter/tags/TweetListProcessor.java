@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.cubestack.social.candidate.TwitterUserCandidate;
 import com.cubestack.social.twitter.list.TweetListService;
+import com.cubestack.social.twitter.streaming.TweetInteractionService;
 
 import twitter4j.Status;
 
@@ -20,6 +21,9 @@ public class TweetListProcessor extends BaseTagProcessor {
 
 	@Autowired
 	private TweetListService tweetListService;
+	
+	@Autowired
+	private TweetInteractionService tweetInteractionService;
 
 	private static final String LIST_TAG = "LIST";
 
@@ -51,6 +55,8 @@ public class TweetListProcessor extends BaseTagProcessor {
 				candidate.setTwitterId(interactionStatus.getUser().getId());
 
 				tweetListService.addTweetToList(listName, interactionStatus, candidate);
+				
+				tweetInteractionService.sendConfirmation(interactionStatus, "Added tweet to list " + listName+". Check: ");
 			} else {
 				// Unable to extract text or invalid format, Move on... reject
 			}

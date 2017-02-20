@@ -6,6 +6,7 @@ package com.cubestack.social.twitter.streaming;
 import java.io.File;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import twitter4j.DirectMessage;
@@ -24,6 +25,9 @@ public class TweetInteractionService {
 	@Autowired
 	private Twitter twitter;
 
+	@Value("${ui.base.url}")
+	private String baseUrl;
+	
 	public void sendTweet(Status root, String text, File entity) throws TwitterException {
 		StatusUpdate statusUpdate = new StatusUpdate(text);
 
@@ -56,6 +60,10 @@ public class TweetInteractionService {
 		}
 
 		twitter.updateStatus(statusUpdate);
+	}
+	
+	public void sendConfirmation(Status root, String text) throws TwitterException {
+		twitter.updateStatus(text + ": " + baseUrl + root.getUser().getScreenName());
 	}
 
 	public DirectMessage sendDirectMsg(String text, String userId) throws TwitterException {

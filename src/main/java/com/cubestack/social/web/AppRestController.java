@@ -31,6 +31,7 @@ import com.cubestack.social.util.GenericUtil;
  *
  */
 @RestController
+@RequestMapping("/rest")
 public class AppRestController {
 
 	private static final String MSG_SEPARATOR = ", ";
@@ -41,7 +42,7 @@ public class AppRestController {
 	@Autowired
 	private TweetListService tweetListService;
 
-	@RequestMapping(path = "{screenName}/lists", method = RequestMethod.GET)
+	@RequestMapping(path = "{screenName}", method = RequestMethod.GET)
 	public TwitterUserCandidate findByUser(@PathVariable("screenName") String screenName) {
 		TwitterUser user = persistantService.findUserByScreenName(screenName);
 		if (user != null) {
