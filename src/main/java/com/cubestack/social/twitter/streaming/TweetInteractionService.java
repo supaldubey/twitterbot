@@ -28,23 +28,6 @@ public class TweetInteractionService {
 	@Value("${ui.base.url}")
 	private String baseUrl;
 	
-	public void sendTweet(Status root, String text, File entity) throws TwitterException {
-		StatusUpdate statusUpdate = new StatusUpdate(text);
-
-		if (root != null && root.getInReplyToStatusId() > 0) {
-			// Add screen name to make sure twitter acknowledges it as a reply
-			statusUpdate = new StatusUpdate("@" + root.getInReplyToScreenName() + " " + text);
-			statusUpdate.setInReplyToStatusId(root.getInReplyToStatusId());
-		}
-
-		// Attach the unsplsah image
-		if (entity != null) {
-			statusUpdate.setMedia(entity);
-		}
-
-		twitter.updateStatus(statusUpdate);
-	}
-
 	public void sendTweetTo(Status root, String text, File entity) throws TwitterException {
 		StatusUpdate statusUpdate = new StatusUpdate(text);
 

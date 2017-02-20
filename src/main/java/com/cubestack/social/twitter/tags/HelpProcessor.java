@@ -29,7 +29,7 @@ public class HelpProcessor extends BaseTagProcessor {
 	@Override
 	public void handle(Status interactionStatus, Status status) {
 		try {
-			tweetInteractionService.sendTweet(interactionStatus, "Howdy! See the tagged image.", new File(HelpProcessor.class.getResource(HELP_FILE_LOCATION).getFile()));
+			tweetInteractionService.sendTweetTo(interactionStatus, "Howdy! See the tagged image.", new File(HelpProcessor.class.getResource(HELP_FILE_LOCATION).getFile()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
