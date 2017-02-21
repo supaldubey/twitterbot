@@ -4,6 +4,7 @@
 package com.cubestack.social.twitter.streaming;
 
 import java.io.File;
+import java.io.InputStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -55,6 +56,25 @@ public class TweetInteractionService {
 
 	public void deleteStatus(long statusId) throws TwitterException {
 		twitter.destroyStatus(statusId);
+	}
+
+	public void sendTweetStream(Status root, String text, InputStream entity) throws TwitterException {
+
+		StatusUpdate statusUpdate = new StatusUpdate(text);
+
+		if (root != null) {
+			// Add screen name to make sure twitter acknowledges it as a reply
+			statusUpdate = new StatusUpdate("@" + root.getUser().getScreenName() + " " + text);
+			statusUpdate.setInReplyToStatusId(root.getId());
+		}
+
+		// Attach the image
+		if (entity != null) {
+			statusUpdate.setMedia("Image", entity);
+		}
+
+		twitter.updateStatus(statusUpdate);
+	
 	}
 
 }

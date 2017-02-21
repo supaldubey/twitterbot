@@ -2,7 +2,7 @@
 
 You need to create twitter4j Read me file before you can proceed. 
 
-### A Bot using twitter for unsplash and tweet management? ###
+### A Bot using twitter tweet management? ###
 
 * Quick summary
 * Version
