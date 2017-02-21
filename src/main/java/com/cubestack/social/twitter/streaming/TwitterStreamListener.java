@@ -3,6 +3,7 @@
  */
 package com.cubestack.social.twitter.streaming;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -37,31 +38,24 @@ public class TwitterStreamListener implements UserStreamListener {
 
 	@Autowired
 	private EventDispatcher eventDispatcher;
+	
+	private static final Logger LOG = Logger.getLogger(TwitterStreamListener.class);
 
 	@Override
 	public void onException(Exception ex) {
-		ex.printStackTrace();
+		LOG.error("Stream error", ex);
 	}
 
 	@Override
 	public void onStatus(final Status status) {
-		System.out.println(status.getUser().getName() + " : " + status.getText());
 
 		Status processingStatus = null;
 
 		if (status.getInReplyToStatusId() > 0) {
 			try {
 				processingStatus = twitter.showStatus((status.getInReplyToStatusId()));
-				if (processingStatus == null) { //
-					// don't know if needed - T4J docs are very bad
-				} else {
-					System.out.println("Nested Twter");
-					System.out.println(
-							"@" + processingStatus.getUser().getScreenName() + " - " + processingStatus.getText());
-				}
 			} catch (TwitterException e) {
-				e.printStackTrace();
-
+				LOG.error("Stream error", e);
 			}
 		} else if (status.getQuotedStatus() != null) {
 			processingStatus = status.getQuotedStatus();

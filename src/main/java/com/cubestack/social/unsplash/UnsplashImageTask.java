@@ -12,6 +12,8 @@ import java.net.URLConnection;
 
 import javax.imageio.ImageIO;
 
+import org.apache.log4j.Logger;
+
 import com.cubestack.social.twitter.async.Task;
 import com.cubestack.social.twitter.streaming.TweetInteractionService;
 
@@ -23,6 +25,8 @@ import twitter4j.TwitterException;
  *
  */
 public class UnsplashImageTask implements Task {
+	
+	private static final Logger LOG = Logger.getLogger(UnsplashImageTask.class);
 
 	public UnsplashImageTask(String url, TweetInteractionService interactionService, Status status, String search) {
 		this.remoteUrl = url;
@@ -62,7 +66,8 @@ public class UnsplashImageTask implements Task {
 	}
 
 	@Override
-	public void handleException(Exception e) {
+	public void handleException(Exception exception) {
+		LOG.error("Error Tweeting image", exception);
 		try {
 			if (search != null && search.trim().length() > 2) {
 				interactionService.sendTweetTo(status, "Unable to fetch image of category: " + search, null);
@@ -71,7 +76,7 @@ public class UnsplashImageTask implements Task {
 						"Unable to fetch random image as no search key was provided.", null);
 			}
 		} catch (TwitterException ex) {
-			ex.printStackTrace();
+			LOG.error("Error Tweeting image", ex);
 		}
 	}
 

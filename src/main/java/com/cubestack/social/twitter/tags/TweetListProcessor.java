@@ -3,6 +3,7 @@
  */
 package com.cubestack.social.twitter.tags;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +19,8 @@ import twitter4j.Status;
  */
 @Component
 public class TweetListProcessor extends BaseTagProcessor {
+	
+	private static final Logger LOG = Logger.getLogger(TweetListProcessor.class);
 
 	@Autowired
 	private TweetListService tweetListService;
@@ -61,8 +64,8 @@ public class TweetListProcessor extends BaseTagProcessor {
 				// Unable to extract text or invalid format, Move on... reject
 				tweetInteractionService.sendTweetTo(interactionStatus, String.format("Failed! Extracted list name %s seems invalid, should be 4 to 10 characters. Retry?",  listName), null);
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception exception) {
+			LOG.error("Error adding tweet to list", exception);
 		}
 
 	}

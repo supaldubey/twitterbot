@@ -3,6 +3,7 @@
  */
 package com.cubestack.social.web;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +34,7 @@ import com.cubestack.social.util.GenericUtil;
 public class AppRestController {
 
 	private static final String MSG_SEPARATOR = ", ";
+	private static final Logger LOG = Logger.getLogger(AppRestController.class);
 
 	@Autowired
 	private TwitterUserPersistantService persistantService;
@@ -73,7 +75,7 @@ public class AppRestController {
 
 	@ExceptionHandler
 	public ResponseEntity<Response> handle(Exception exception) {
-		exception.printStackTrace();
+		LOG.error("Exception processing request", exception);
 
 		Response response = new Response();
 		response.setSuccess(false);

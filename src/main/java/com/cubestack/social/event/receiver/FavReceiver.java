@@ -7,6 +7,7 @@ import static reactor.bus.selector.Selectors.$;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -48,8 +49,8 @@ public class FavReceiver implements Consumer<Event<FavEvent>> {
 		if (status.getInReplyToUserId() != 0 && status.getInReplyToUserId() == favEvent.getTwitterId()) {
 			try {
 				tweetInteractionService.deleteStatus(favEvent.getStatus().getId());
-			} catch (TwitterException e) {
-				e.printStackTrace();
+			} catch (TwitterException exception) {
+				Logger.getLogger(FavReceiver.class).error("Error Handling Fav", exception);
 			}
 		}
 

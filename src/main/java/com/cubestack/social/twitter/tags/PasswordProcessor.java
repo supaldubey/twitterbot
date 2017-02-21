@@ -5,6 +5,7 @@ package com.cubestack.social.twitter.tags;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -30,6 +31,8 @@ public class PasswordProcessor extends BaseTagProcessor {
 
 	@Autowired
 	private TweetInteractionService tweetInteractionService;
+	
+	private static final Logger LOG = Logger.getLogger(PasswordProcessor.class);
 
 	@Override
 	public void handle(Status interactionStatus, Status status) {
@@ -46,8 +49,8 @@ public class PasswordProcessor extends BaseTagProcessor {
 				if (msg == null) {
 					sendFailureTweet(interactionStatus, user);
 				}
-			} catch (TwitterException e) {
-				e.printStackTrace();
+			} catch (TwitterException exception) {
+				LOG.error("Exception resetting password", exception);
 				sendFailureTweet(interactionStatus, user);
 			}
 		}
@@ -57,8 +60,8 @@ public class PasswordProcessor extends BaseTagProcessor {
 		try {
 			tweetInteractionService.sendTweetTo(interactionStatus,
 					"Unable to send PIN via direct message. If you are not following me, follow me Maybe?", null);
-		} catch (TwitterException e) {
-			e.printStackTrace();
+		} catch (TwitterException exception) {
+			LOG.error("Exception resetting password", exception);
 		}
 	}
 

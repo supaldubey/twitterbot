@@ -5,6 +5,7 @@ package com.cubestack.social.twitter.tags;
 
 import java.io.File;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -30,8 +31,8 @@ public class HelpProcessor extends BaseTagProcessor {
 	public void handle(Status interactionStatus, Status status) {
 		try {
 			tweetInteractionService.sendTweetTo(interactionStatus, "Howdy! See the tagged image.", new File(HelpProcessor.class.getResource(HELP_FILE_LOCATION).getFile()));
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception exception) {
+			Logger.getLogger(HelpProcessor.class).error("Error Tweeting help", exception);
 		}
 	}
 

@@ -5,6 +5,7 @@ package com.cubestack.social.twitter.tags;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -52,8 +53,8 @@ public class ResetPasswordProcessor extends PasswordProcessor {
 				if (msg == null) {
 					sendFailureTweet(interactionStatus, user);
 				}
-			} catch (TwitterException e) {
-				e.printStackTrace();
+			} catch (TwitterException exception) {
+				Logger.getLogger(ResetPasswordProcessor.class).error("Error resetting", exception);
 				sendFailureTweet(interactionStatus, user);
 			}
 		}

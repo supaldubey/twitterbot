@@ -15,8 +15,7 @@ public class GenericUtil {
 		try {
 			number = Integer.parseInt(text);
 		} catch (Exception e) {
-			// Print to console for now.
-			e.printStackTrace();
+			// Ignore.
 		}
 		return number;
 	}
