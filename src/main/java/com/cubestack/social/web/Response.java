@@ -18,7 +18,8 @@ public class Response {
 	private String message;
 	private TwitterUserCandidate twitterUserCandidate;
 	private List<TweetCandidate> tweetCandidates;
-
+	private int totalPages;
+	
 	public boolean isSuccess() {
 		return success;
 	}
@@ -49,6 +50,14 @@ public class Response {
 
 	public void setTweetCandidates(List<TweetCandidate> tweetCandidates) {
 		this.tweetCandidates = tweetCandidates;
+	}
+
+	public int getTotalPages() {
+		return totalPages;
+	}
+
+	public void setTotalPages(int totalPages) {
+		this.totalPages = totalPages;
 	}
 
 }

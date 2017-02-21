@@ -3,8 +3,6 @@
  */
 package com.cubestack.social.web;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cubestack.social.candidate.TweetWrapper;
 import com.cubestack.social.converter.TweetConverter;
 import com.cubestack.social.converter.TwitterUserConverter;
 import com.cubestack.social.exception.ProfileNotFoundException;
-import com.cubestack.social.model.Tweet;
 import com.cubestack.social.model.TwitterUser;
 import com.cubestack.social.persistance.TwitterUserPersistantService;
 import com.cubestack.social.twitter.list.TweetListService;
@@ -61,11 +59,13 @@ public class AppRestController {
 	public Response findTweets(@PathVariable("screenName") String screenName,
 			@PathVariable("listName") String listName, @PathVariable("pageIndex") String pageIndex) throws ProfileNotFoundException {
 		int pageNo = GenericUtil.parseSafe(pageIndex);
-		List<Tweet> tweets = tweetListService.findTweets(screenName, listName, pageNo);
+		TweetWrapper tweetsWrapper = tweetListService.findTweets(screenName, listName, pageNo);
 
 		Response response = new Response();
 		response.setTwitterUserCandidate(TwitterUserConverter.convertToCandidate(persistantService.findUserByScreenName(screenName)));
-		response.setTweetCandidates(TweetConverter.convertToCandidates(tweets));
+		response.setTweetCandidates(TweetConverter.convertToCandidates(tweetsWrapper.getTweets()));
+		response.setTotalPages(tweetsWrapper.getTotalPages());
+		
 		return response;
 	}
 	
@@ -88,6 +88,7 @@ public class AppRestController {
 			errorMsg = new StringBuilder(errorMsg.substring(0, errorMsg.length() - 2));
 			response.setMessage(errorMsg.toString());
 		} else if (exception instanceof ProfileNotFoundException) {
+			//That's valid
 			response.setMessage(exception.getMessage());
 			return new ResponseEntity<Response>(response, HttpStatus.OK);
 		}

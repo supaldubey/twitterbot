@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cubestack.social.candidate.TweetWrapper;
 import com.cubestack.social.candidate.TwitterUserCandidate;
 import com.cubestack.social.exception.ProfileNotFoundException;
 import com.cubestack.social.model.Tweet;
@@ -51,19 +52,6 @@ public class TweetListService {
 		tweetList.getTweets().add(tweet);
 
 		persistantService.saveUser(twitterUser);
-	}
-
-	public List<Tweet> findTweets(long userId, String category, int page) {
-		TwitterUser twitterUser = persistantService.findUserByTwitterId(userId);
-
-		for (TweetList list : twitterUser.getTweetLists()) {
-			if (category.equalsIgnoreCase(list.getName())) {
-				return tweetService.findTweets(list, page);
-			}
-		}
-
-		// Return empty
-		return new LinkedList<>();
 	}
 
 	private TweetList find(String category, TwitterUser twitterUser) {
@@ -110,18 +98,20 @@ public class TweetListService {
 		return tweeple;
 	}
 
-	public List<Tweet> findTweets(String screenName, String listName, int page) throws ProfileNotFoundException {
+	public TweetWrapper findTweets(String screenName, String listName, int page) throws ProfileNotFoundException {
 
+		TweetWrapper wrapper = new TweetWrapper();
+		wrapper.setListName(listName);
+		
 		TwitterUser twitterUser = persistantService.findUserByScreenName(screenName);
-
 		for (TweetList list : twitterUser.getTweetLists()) {
 			if (listName.equalsIgnoreCase(list.getName())) {
-				return tweetService.findTweets(list, page);
+				 tweetService.populateTweetsInWrapper(wrapper, list, page);
+				 break;
 			}
 		}
 
-		// Return empty
-		return new LinkedList<>();
-
+		return wrapper;
 	}
+	
 }

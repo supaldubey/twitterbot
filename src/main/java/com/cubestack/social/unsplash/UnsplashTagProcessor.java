@@ -21,6 +21,10 @@ import twitter4j.Status;
 @Component
 public class UnsplashTagProcessor extends BaseTagProcessor {
 
+	private static final String RANDOM = "random";
+
+	private static final String CATEGORY = "category/";
+
 	private static final String UNSPLASH_TAG = "UNSPLASH";
 
 	@Value("${unsplash.base.url}")
@@ -53,10 +57,10 @@ public class UnsplashTagProcessor extends BaseTagProcessor {
 
 		if (search != null && search.trim().length() > 0) {
 			// we have what we need, fire up unsplash search
-			sendImage(search, interactionStatus, unsplashUrl + "category/" + search + resolution);
+			sendImage(search, interactionStatus, unsplashUrl + CATEGORY + search + resolution);
 		} else {
 			// Unable to extract text show random
-			sendImage(search, interactionStatus, unsplashUrl + "random" + resolution);
+			sendImage(search, interactionStatus, unsplashUrl + RANDOM + resolution);
 		}
 
 	}

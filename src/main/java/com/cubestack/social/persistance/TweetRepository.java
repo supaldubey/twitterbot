@@ -3,8 +3,7 @@
  */
 package com.cubestack.social.persistance;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -17,6 +16,6 @@ import com.cubestack.social.model.TweetList;
  */
 public interface TweetRepository extends JpaRepository<Tweet, Long> {
 
-	List<Tweet> findByList(TweetList tweetList, Pageable pageable);
+	Page<Tweet> findByList(TweetList tweetList, Pageable pageable);
 
 }
