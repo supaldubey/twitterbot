@@ -47,7 +47,7 @@ public class TweetListProcessor extends BaseTagProcessor {
 			} else {
 				listName = text.substring(init, end);
 			}
-			if (listName != null && listName.trim().length() > 0) {
+			if (listName != null && listName.trim().length() > 2 && listName.trim().length() < 11) {
 				TwitterUserCandidate candidate = new TwitterUserCandidate();
 				// List Name to which Tweet must be saved to
 				candidate.setScreenName(interactionStatus.getUser().getScreenName());
@@ -59,6 +59,7 @@ public class TweetListProcessor extends BaseTagProcessor {
 				tweetInteractionService.sendConfirmation(interactionStatus, "Added tweet to list " + listName+". Check: ");
 			} else {
 				// Unable to extract text or invalid format, Move on... reject
+				tweetInteractionService.sendTweetTo(interactionStatus, String.format("Failed! Extracted list name %s seems invalid, should be 4 to 10 characters. Retry?",  listName), null);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -21,6 +21,7 @@ public class TweetConverter {
 		candidate.setId(tweet.getId());
 		candidate.setStatusText(tweet.getText());
 		candidate.setTweetId(tweet.getTweetId());
+		candidate.setTweetBy(tweet.getStatusBy());
 
 		return candidate;
 	}

@@ -32,6 +32,9 @@ public class Tweet {
 
 	@Column(name = "REPLY_TWEET")
 	private long inReplyToTweetId;
+	
+	@Column(name = "STATUS_BY")
+	private String statusBy;
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private TweetList list;
@@ -74,6 +77,14 @@ public class Tweet {
 
 	public void setList(TweetList list) {
 		this.list = list;
+	}
+
+	public String getStatusBy() {
+		return statusBy;
+	}
+
+	public void setStatusBy(String statusBy) {
+		this.statusBy = statusBy;
 	}
 
 }

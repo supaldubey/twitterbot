@@ -37,7 +37,7 @@ public class TweetInteractionService {
 			statusUpdate.setInReplyToStatusId(root.getId());
 		}
 
-		// Attach the unsplsah image
+		// Attach the image
 		if (entity != null) {
 			statusUpdate.setMedia(entity);
 		}
@@ -46,7 +46,7 @@ public class TweetInteractionService {
 	}
 	
 	public void sendConfirmation(Status root, String text) throws TwitterException {
-		twitter.updateStatus(text + ": " + baseUrl + root.getUser().getScreenName());
+		sendTweetTo(root, text + ": " + baseUrl + root.getUser().getScreenName(), null);
 	}
 
 	public DirectMessage sendDirectMsg(String text, String userId) throws TwitterException {

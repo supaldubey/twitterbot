@@ -3,8 +3,6 @@
  */
 package com.cubestack.social.twitter.list;
 
-import java.util.List;
-
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,14 +28,11 @@ public class TwitterPersistanceService {
 	}
 
 	public TwitterUser find(long tweepId) throws ProfileNotFoundException {
-		TwitterUser tweep = twitterRepository.findOne(tweepId);
-		if (tweep == null) {
+		TwitterUser twitterUser = twitterRepository.findOne(tweepId);
+		if (twitterUser == null) {
 			throw new ProfileNotFoundException();
 		}
-		return tweep;
+		return twitterUser;
 	}
 
-	public List<TwitterUser> findByScreenId(String screenName) {
-		return twitterRepository.findByScreenNameIgnoreCase(screenName);
-	}
 }

@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cubestack.social.exception.ProfileNotFoundException;
 import com.cubestack.social.model.TweetList;
 import com.cubestack.social.model.TwitterUser;
 
@@ -48,8 +49,12 @@ public class TwitterUserPersistantService {
 		return repository.save(twitterUser);
 	}
 
-	public TwitterUser findUserByScreenName(String screenName) {
-		return repository.findUserByScreenName(screenName);
+	public TwitterUser findUserByScreenName(String screenName) throws ProfileNotFoundException {
+		TwitterUser user = repository.findUserByScreenName(screenName);
+		if(user == null) {
+			throw new ProfileNotFoundException();
+		}
+		return user;
 	}
 
 }

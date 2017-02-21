@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cubestack.social.candidate.TwitterUserCandidate;
+import com.cubestack.social.exception.ProfileNotFoundException;
 import com.cubestack.social.model.Tweet;
 import com.cubestack.social.model.TweetList;
 import com.cubestack.social.model.TwitterUser;
@@ -43,6 +44,7 @@ public class TweetListService {
 
 		// In case we need to point out to interaction tweet (SOURCE)
 		tweet.setInReplyToTweetId(interactionStatus.getId());
+		tweet.setStatusBy(candidate.getStatus().getUser().getScreenName());
 
 		tweet.setList(tweetList);
 
@@ -108,7 +110,7 @@ public class TweetListService {
 		return tweeple;
 	}
 
-	public List<Tweet> findTweets(String screenName, String listName, int page) {
+	public List<Tweet> findTweets(String screenName, String listName, int page) throws ProfileNotFoundException {
 
 		TwitterUser twitterUser = persistantService.findUserByScreenName(screenName);
 
