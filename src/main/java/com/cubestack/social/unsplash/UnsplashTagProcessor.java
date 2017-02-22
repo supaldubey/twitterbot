@@ -41,7 +41,7 @@ public class UnsplashTagProcessor extends BaseTagProcessor {
 
 	@Override
 	public void handle(Status interactionStatus, Status status) {
-		String text = interactionStatus.getText().toUpperCase();
+		String text = interactionStatus.getText().toUpperCase().trim().replaceAll(" +", " ");
 		// Fetch the word after the unsplash hash Tag
 
 		int init = text.indexOf(UNSPLASH_TAG) + UNSPLASH_TAG.length() + 1;
@@ -58,7 +58,7 @@ public class UnsplashTagProcessor extends BaseTagProcessor {
 		}
 		if (search != null && search.trim().length() > 0) {
 			// we have what we need, fire up unsplash search
-			sendImage(search, interactionStatus, unsplashUrl + CATEGORY + search + resolution);
+			sendImage(search, interactionStatus, unsplashUrl + CATEGORY + search.trim() + resolution);
 		} else {
 			// Unable to extract text show random
 			sendImage(search, interactionStatus, unsplashUrl + RANDOM + resolution);

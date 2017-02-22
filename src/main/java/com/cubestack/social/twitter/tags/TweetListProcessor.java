@@ -37,7 +37,7 @@ public class TweetListProcessor extends BaseTagProcessor {
 		}
 		try {
 
-			String text = interactionStatus.getText().toUpperCase();
+			String text = interactionStatus.getText().toUpperCase().trim().replaceAll(" +", " ");;
 			// Fetch the word after the #List hash Tag
 
 			int init = text.indexOf(LIST_TAG) + LIST_TAG.length() + 1;

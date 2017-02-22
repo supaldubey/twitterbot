@@ -16,11 +16,10 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class AsyncWorker {
-	// TODO: Think over.
-	private ExecutorService executorService = Executors.newFixedThreadPool(3);
+	private ExecutorService executorService;
 
 	public void submit(final Task task) {
-		Future<Void> response = executorService.submit(new Callable<Void>() {
+		Future<Void> response = service().submit(new Callable<Void>() {
 
 			@Override
 			public Void call() throws Exception {
@@ -34,5 +33,17 @@ public class AsyncWorker {
 		} catch (Exception e) {
 			task.handleException(e);
 		}
+	}
+	
+	//Lazy initliazation
+	private ExecutorService service() {
+		if(executorService == null) {
+			synchronized (this) {
+				if(executorService == null) {
+					executorService = Executors.newFixedThreadPool(3);
+				}
+			}
+		}
+		return executorService;
 	}
 }
