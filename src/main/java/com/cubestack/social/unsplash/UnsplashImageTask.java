@@ -14,7 +14,7 @@ import javax.imageio.ImageIO;
 
 import org.apache.log4j.Logger;
 
-import com.cubestack.social.twitter.async.Task;
+import com.cubestack.social.async.Task;
 import com.cubestack.social.twitter.streaming.TweetInteractionService;
 
 import twitter4j.Status;
@@ -70,14 +70,14 @@ public class UnsplashImageTask implements Task {
 		LOG.error("Error Tweeting image", exception);
 		try {
 			if (search != null && search.trim().length() > 2) {
-				interactionService.sendTweetTo(status, "Unable to fetch image of category: " + search, null);
+				interactionService.sendTweetTo(status, 
+						"Unable to fetch image of category: " + search+". Valid categories: buildings, nature, food, people, technology, objects", null);
 			} else {
-				interactionService.sendTweetTo(status,
-						"Unable to fetch random image as no search key was provided.", null);
+				interactionService.sendTweetTo(status, "Unable to fetch random image as no search key was provided.", null);
 			}
 		} catch (TwitterException ex) {
 			LOG.error("Error Tweeting image", ex);
 		}
 	}
-
 }
+

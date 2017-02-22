@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cubestack.social.twitter.async;
+package com.cubestack.social.async;
 
 /**
  * @author Supal Dubey

@@ -35,6 +35,9 @@ public class Tweet {
 	
 	@Column(name = "STATUS_BY")
 	private String statusBy;
+	
+	@Column(name = "DELTD")
+	private boolean deleted;
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private TweetList list;
@@ -85,6 +88,14 @@ public class Tweet {
 
 	public void setStatusBy(String statusBy) {
 		this.statusBy = statusBy;
+	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}
 
 }

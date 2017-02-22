@@ -16,6 +16,6 @@ import com.cubestack.social.model.TweetList;
  */
 public interface TweetRepository extends JpaRepository<Tweet, Long> {
 
-	Page<Tweet> findByList(TweetList tweetList, Pageable pageable);
+	Page<Tweet> findByListAndDeleted(TweetList tweetList, boolean deleted, Pageable pageable);
 
 }

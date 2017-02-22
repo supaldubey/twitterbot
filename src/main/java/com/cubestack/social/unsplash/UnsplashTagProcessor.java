@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.cubestack.social.twitter.async.AsyncWorker;
+import com.cubestack.social.async.AsyncWorker;
 import com.cubestack.social.twitter.streaming.TweetInteractionService;
 import com.cubestack.social.twitter.tags.BaseTagProcessor;
 

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cubestack.social.twitter.async;
+package com.cubestack.social.async;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;

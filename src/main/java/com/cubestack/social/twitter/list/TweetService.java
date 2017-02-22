@@ -26,7 +26,7 @@ public class TweetService {
 
 	public void populateTweetsInWrapper(TweetWrapper wrapper, TweetList tweetList, int page) {
 		Pageable pageable = new PageRequest(page, 10);
-		Page<Tweet> pageResult = tweetRepository.findByList(tweetList, pageable);
+		Page<Tweet> pageResult = tweetRepository.findByListAndDeleted(tweetList, false, pageable);
 		wrapper.setTotalPages(pageResult.getTotalPages());
 		wrapper.setTweets(pageResult.getContent());
 	}
