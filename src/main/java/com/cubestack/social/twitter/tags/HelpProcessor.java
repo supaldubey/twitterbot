@@ -20,7 +20,7 @@ import twitter4j.Status;
 @Component
 public class HelpProcessor extends BaseTagProcessor {
 
-	private static final String HELP_FILE_LOCATION = "/cubestack_bot_help.png";
+	public static final String HELP_FILE_LOCATION = "/cubestack_bot_help.png";
 
 	private static final String HELP = "HELP";
 
@@ -29,11 +29,19 @@ public class HelpProcessor extends BaseTagProcessor {
 
 	@Override
 	public void handle(Status interactionStatus, Status status) {
+
+		File file = fetch();
+
 		try {
-			tweetInteractionService.sendTweetTo(interactionStatus, "Howdy! See the tagged image.", new File(HelpProcessor.class.getResource(HELP_FILE_LOCATION).getFile()));
+			tweetInteractionService.sendTweetTo(interactionStatus, "Howdy! See the tagged image. Check : http://cubestack.in/twitterui", file);
 		} catch (Exception exception) {
 			Logger.getLogger(HelpProcessor.class).error("Error Tweeting help", exception);
 		}
+	}
+
+	// Somehow twitter4j API isn't able to fetch files from inside the Jar, moving to server for now
+	private File fetch() {
+		return new File("/jars/cubestack_bot_help.png");
 	}
 
 	@Override

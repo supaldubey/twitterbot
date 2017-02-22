@@ -49,12 +49,13 @@ public class UnsplashTagProcessor extends BaseTagProcessor {
 		int end = text.indexOf(" ", init);
 		String search = null;
 
-		if (end == -1) {
-			search = text.substring(init);
-		} else {
-			search = text.substring(init, end);
+		if(init < text.length()) {
+			if (end == -1) {
+				search = text.substring(init);
+			} else {
+				search = text.substring(init, end);
+			}
 		}
-
 		if (search != null && search.trim().length() > 0) {
 			// we have what we need, fire up unsplash search
 			sendImage(search, interactionStatus, unsplashUrl + CATEGORY + search + resolution);
@@ -74,5 +75,5 @@ public class UnsplashTagProcessor extends BaseTagProcessor {
 	public String tag() {
 		return UNSPLASH_TAG;
 	}
-
+	
 }

@@ -45,10 +45,12 @@ public class TweetListProcessor extends BaseTagProcessor {
 			int end = text.indexOf(" ", init);
 
 			String listName = "";
-			if (end == -1) {
-				listName = text.substring(init);
-			} else {
-				listName = text.substring(init, end);
+			if(init < text.length()) {
+				if (end == -1) {
+					listName = text.substring(init);
+				} else {
+					listName = text.substring(init, end);
+				}
 			}
 			if (listName != null && listName.trim().length() > 2 && listName.trim().length() < 11) {
 				TwitterUserCandidate candidate = new TwitterUserCandidate();
