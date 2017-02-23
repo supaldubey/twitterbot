@@ -42,7 +42,7 @@ public class UnsplashProcessorTest {
 	
 	@Test
 	public void testEmptyStatus () {
-		processor.handle(StatusUtils.create("@cubestackbot #Unsplash"), null);
+		processor.handle(StatusUtils.create("@cubestackbot #Unsplash", "cubestack"), null);
 		Task task = asyncWorker.getTask();
 		
 		Assert.assertNotNull(task);
@@ -53,7 +53,7 @@ public class UnsplashProcessorTest {
 	
 	@Test
 	public void testSpacesStatus () {
-		processor.handle(StatusUtils.create("@cubestackbot #Unsplash               "), null);
+		processor.handle(StatusUtils.create("@cubestackbot #Unsplash               ", "cubestack"), null);
 		Task task = asyncWorker.getTask();
 		
 		Assert.assertNotNull(task);
@@ -64,7 +64,7 @@ public class UnsplashProcessorTest {
 	
 	@Test
 	public void testCategoryStatus () {
-		processor.handle(StatusUtils.create("@cubestackbot #Unsplash  nature"), null);
+		processor.handle(StatusUtils.create("@cubestackbot #Unsplash  nature", "cubestack"), null);
 		Task task = asyncWorker.getTask();
 		
 		Assert.assertNotNull(task);
