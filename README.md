@@ -40,4 +40,4 @@ While the source and all artifacts are open source, this is not meant to be comm
 ### Who do I talk to? ###
 
 * If you have any questions, feature requests or bugs for Bot, shoot email to cubestacklabs@gmail.com
-* EMail me at supal.dubey at Gmail if you want to discuss anything else. 
+* EMail me at supal.dubey at Outlook.com if you want to discuss anything else. 
