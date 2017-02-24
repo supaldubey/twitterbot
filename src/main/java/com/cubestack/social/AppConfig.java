@@ -14,7 +14,7 @@ import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
 
 /**
- * @author supal
+ * @author Supal Dubey
  *
  */
 @Configuration
