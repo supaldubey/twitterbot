@@ -1,6 +1,6 @@
 # @cubestackbot #
 
-[Check out](http://cubestack.in/twitterui/) 
+[Check out](https://twitter.cubestack.in/) 
 
 A bot for Twitter to organize your tweets and also would tweet you Unsplash photos (because why not! and also ♡ Unsplash).
 
