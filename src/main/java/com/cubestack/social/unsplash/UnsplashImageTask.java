@@ -35,10 +35,10 @@ public class UnsplashImageTask implements Task {
 		this.search = search;
 	}
 
-	private String remoteUrl;
-	private TweetInteractionService interactionService;
-	private Status status;
-	private String search;
+	private final String remoteUrl;
+	private final TweetInteractionService interactionService;
+	private final Status status;
+	private final String search;
 
 	@Override
 	public void perform() {

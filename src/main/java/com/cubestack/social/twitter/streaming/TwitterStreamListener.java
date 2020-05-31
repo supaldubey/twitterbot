@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.cubestack.social.twitter.streaming;
 
 import org.apache.log4j.Logger;
@@ -30,16 +27,17 @@ import twitter4j.UserStreamListener;
 @Component
 public class TwitterStreamListener implements UserStreamListener {
 
-	@Autowired
-	private Twitter twitter;
-
-	@Autowired
-	private TwitterStatusProcessor statusProcessor;
-
-	@Autowired
-	private EventDispatcher eventDispatcher;
+	private final Twitter twitter;
+	private final TwitterStatusProcessor statusProcessor;
+	private final EventDispatcher eventDispatcher;
 	
 	private static final Logger LOG = Logger.getLogger(TwitterStreamListener.class);
+
+	public TwitterStreamListener(Twitter twitter, TwitterStatusProcessor statusProcessor, EventDispatcher eventDispatcher) {
+		this.twitter = twitter;
+		this.statusProcessor = statusProcessor;
+		this.eventDispatcher = eventDispatcher;
+	}
 
 	@Override
 	public void onException(Exception ex) {
@@ -65,37 +63,37 @@ public class TwitterStreamListener implements UserStreamListener {
 
 	@Override
 	public void onDeletionNotice(StatusDeletionNotice statusDeletionNotice) {
-		System.out.println("Status delete" + statusDeletionNotice);
+		LOG.info("Status delete" + statusDeletionNotice);
 	}
 
 	@Override
 	public void onTrackLimitationNotice(int numberOfLimitedStatuses) {
-		System.out.println("Status onTrackLimitationNotice" + numberOfLimitedStatuses);
+		LOG.info("Status onTrackLimitationNotice" + numberOfLimitedStatuses);
 	}
 
 	@Override
 	public void onScrubGeo(long userId, long upToStatusId) {
-		System.out.println("Status onScrubGeo" + userId);
+		LOG.info("Status onScrubGeo" + userId);
 	}
 
 	@Override
 	public void onStallWarning(StallWarning warning) {
-		System.out.println("Status onStallWarning" + warning);
+		LOG.info("Status onStallWarning" + warning);
 	}
 
 	@Override
 	public void onDeletionNotice(long directMessageId, long userId) {
-		System.out.println("Status onDeletionNotice" + directMessageId);
+		LOG.info("Status onDeletionNotice" + directMessageId);
 	}
 
 	@Override
 	public void onFriendList(long[] friendIds) {
-		System.out.println("Status onFriendList" + friendIds);
+		LOG.info("Status onFriendList" + friendIds);
 	}
 
 	@Override
 	public void onFavorite(User source, User target, Status favoritedStatus) {
-		System.out.println("Status onFavorite" + source);
+		LOG.info("Status onFavorite" + source);
 		FavEvent event = new FavEvent();
 		event.setTwitterId(source.getId());
 		event.setTwitterScreenName(source.getScreenName());
@@ -106,7 +104,7 @@ public class TwitterStreamListener implements UserStreamListener {
 
 	@Override
 	public void onUnfavorite(User source, User target, Status unfavoritedStatus) {
-		System.out.println("Status onUnfavorite" + source);
+		LOG.info("Status onUnfavorite" + source);
 	}
 
 	@Override
@@ -122,7 +120,7 @@ public class TwitterStreamListener implements UserStreamListener {
 
 	@Override
 	public void onUnfollow(User source, User unfollowedUser) {
-		System.out.println("Status onUnfollow" + source);
+		LOG.info("Status onUnfollow" + source);
 	}
 
 	@Override
@@ -132,77 +130,77 @@ public class TwitterStreamListener implements UserStreamListener {
 
 	@Override
 	public void onUserListMemberAddition(User addedMember, User listOwner, UserList list) {
-		System.out.println("Status onUserListMemberAddition" + addedMember);
+		LOG.info("Status onUserListMemberAddition" + addedMember);
 	}
 
 	@Override
 	public void onUserListMemberDeletion(User deletedMember, User listOwner, UserList list) {
-		System.out.println("Status onUserListMemberDeletion" + deletedMember);
+		LOG.info("Status onUserListMemberDeletion" + deletedMember);
 	}
 
 	@Override
 	public void onUserListSubscription(User subscriber, User listOwner, UserList list) {
-		System.out.println("Status onUserListSubscription" + subscriber);
+		LOG.info("Status onUserListSubscription" + subscriber);
 	}
 
 	@Override
 	public void onUserListUnsubscription(User subscriber, User listOwner, UserList list) {
-		System.out.println("Status onUserListUnsubscription" + subscriber);
+		LOG.info("Status onUserListUnsubscription" + subscriber);
 	}
 
 	@Override
 	public void onUserListCreation(User listOwner, UserList list) {
-		System.out.println("Status onUserListCreation" + list);
+		LOG.info("Status onUserListCreation" + list);
 	}
 
 	@Override
 	public void onUserListUpdate(User listOwner, UserList list) {
-		System.out.println("Status onUserListUpdate" + list);
+		LOG.info("Status onUserListUpdate" + list);
 	}
 
 	@Override
 	public void onUserListDeletion(User listOwner, UserList list) {
-		System.out.println("Status onUserListDeletion" + list);
+		LOG.info("Status onUserListDeletion" + list);
 	}
 
 	@Override
 	public void onUserProfileUpdate(User updatedUser) {
-		System.out.println("Status onUserProfileUpdate" + updatedUser);
+		LOG.info("Status onUserProfileUpdate" + updatedUser);
 	}
 
 	@Override
 	public void onUserSuspension(long suspendedUser) {
-		System.out.println("Status onUserSuspension" + suspendedUser);
+		LOG.info("Status onUserSuspension" + suspendedUser);
 	}
 
 	@Override
 	public void onUserDeletion(long deletedUser) {
-		System.out.println("Status onUserDeletion" + deletedUser);
+		LOG.info("Status onUserDeletion" + deletedUser);
 	}
 
 	@Override
 	public void onBlock(User source, User blockedUser) {
-		System.out.println("Status onBlock" + blockedUser);
+		LOG.info("Status onBlock" + blockedUser);
 	}
 
 	@Override
 	public void onUnblock(User source, User unblockedUser) {
-		System.out.println("Status onUnblock" + unblockedUser);
+		LOG.info("Status onUnblock" + unblockedUser);
 	}
 
 	@Override
 	public void onRetweetedRetweet(User source, User target, Status retweetedStatus) {
-		System.out.println("Status onRetweetedRetweet" + target);
+		LOG.info("Status onRetweetedRetweet" + target);
 	}
 
 	@Override
 	public void onFavoritedRetweet(User source, User target, Status favoritedRetweeet) {
-		System.out.println("Status onFavoritedRetweet" + target);
+		LOG.info("Status onFavoritedRetweet" + target);
 	}
 
 	@Override
 	public void onQuotedTweet(User source, User target, Status quotingTweet) {
-		System.out.println("Status onQuotedTweet" + target);
+		LOG.info("Status onQuotedTweet" + target);
 	}
 
 }

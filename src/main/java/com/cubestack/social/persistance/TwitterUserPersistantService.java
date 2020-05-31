@@ -22,8 +22,11 @@ import twitter4j.User;
 @Service
 public class TwitterUserPersistantService {
 
-	@Autowired
-	private TwitterUserRepository repository;
+	private final TwitterUserRepository repository;
+
+	public TwitterUserPersistantService(TwitterUserRepository repository) {
+		this.repository = repository;
+	}
 
 	public TwitterUser findUserByTwitterId(long twitterId) {
 		List<TwitterUser> users = repository.findByTwitterId(twitterId);

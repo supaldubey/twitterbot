@@ -20,5 +20,4 @@ public abstract class BaseTagProcessor implements TagProcessor {
 	public void init() {
 		tagRegistry.register(this);
 	}
-
 }

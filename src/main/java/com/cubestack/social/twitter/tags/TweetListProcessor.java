@@ -22,13 +22,15 @@ public class TweetListProcessor extends BaseTagProcessor {
 	
 	private static final Logger LOG = Logger.getLogger(TweetListProcessor.class);
 
-	@Autowired
-	private TweetListService tweetListService;
-	
-	@Autowired
-	private TweetInteractionService tweetInteractionService;
+	private final TweetListService tweetListService;
+	private final TweetInteractionService tweetInteractionService;
 
 	private static final String LIST_TAG = "LIST";
+
+	public TweetListProcessor(TweetListService tweetListService, TweetInteractionService tweetInteractionService) {
+		this.tweetListService = tweetListService;
+		this.tweetInteractionService = tweetInteractionService;
+	}
 
 	@Override
 	public void handle(Status interactionStatus, Status status) {
@@ -36,7 +38,6 @@ public class TweetListProcessor extends BaseTagProcessor {
 			return;
 		}
 		try {
-
 			String text = interactionStatus.getText().toUpperCase().trim().replaceAll(" +", " ");;
 			// Fetch the word after the #List hash Tag
 
@@ -52,7 +53,7 @@ public class TweetListProcessor extends BaseTagProcessor {
 					listName = text.substring(init, end);
 				}
 			}
-			if (listName != null && listName.trim().length() > 2 && listName.trim().length() < 11) {
+			if (listName.trim().length() > 2 && listName.trim().length() < 11) {
 				TwitterUserCandidate candidate = new TwitterUserCandidate();
 				// List Name to which Tweet must be saved to
 				candidate.setScreenName(interactionStatus.getUser().getScreenName());

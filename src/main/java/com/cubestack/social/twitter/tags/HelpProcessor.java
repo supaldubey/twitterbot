@@ -24,12 +24,14 @@ public class HelpProcessor extends BaseTagProcessor {
 
 	private static final String HELP = "HELP";
 
-	@Autowired
-	private TweetInteractionService tweetInteractionService;
+	private final TweetInteractionService tweetInteractionService;
+
+	public HelpProcessor(TweetInteractionService tweetInteractionService) {
+		this.tweetInteractionService = tweetInteractionService;
+	}
 
 	@Override
 	public void handle(Status interactionStatus, Status status) {
-
 		File file = fetch();
 
 		try {

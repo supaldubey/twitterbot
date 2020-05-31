@@ -23,8 +23,11 @@ import reactor.fn.Consumer;
 @Component
 public class DirectMessageReciever implements Consumer<Event<DirectMessageEvent>> {
 
-	@Autowired
-	private EventBus bus;
+	private final EventBus bus;
+
+	public DirectMessageReciever(EventBus bus) {
+		this.bus = bus;
+	}
 
 	@PostConstruct
 	public void init() {
@@ -33,7 +36,6 @@ public class DirectMessageReciever implements Consumer<Event<DirectMessageEvent>
 
 	@Override
 	public void accept(Event<DirectMessageEvent> t) {
-		System.out.println("DM");
 	}
 
 }

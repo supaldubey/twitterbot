@@ -36,11 +36,13 @@ public class AppRestController {
 	private static final String MSG_SEPARATOR = ", ";
 	private static final Logger LOG = Logger.getLogger(AppRestController.class);
 
-	@Autowired
-	private TwitterUserPersistantService persistantService;
+	private final TwitterUserPersistantService persistantService;
+	private final TweetListService tweetListService;
 
-	@Autowired
-	private TweetListService tweetListService;
+	public AppRestController(TwitterUserPersistantService persistantService, TweetListService tweetListService) {
+		this.persistantService = persistantService;
+		this.tweetListService = tweetListService;
+	}
 
 	@RequestMapping(path = "{screenName}", method = RequestMethod.GET)
 	@PreAuthorize("hasIpAddress('127.0.01')")

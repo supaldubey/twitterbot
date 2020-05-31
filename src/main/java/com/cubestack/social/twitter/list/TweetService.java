@@ -24,8 +24,11 @@ import com.cubestack.social.persistance.TweetRepository;
 @Transactional
 public class TweetService {
 
-	@Autowired
-	private TweetRepository tweetRepository;
+	private final TweetRepository tweetRepository;
+
+	public TweetService(TweetRepository tweetRepository) {
+		this.tweetRepository = tweetRepository;
+	}
 
 	public void populateTweetsInWrapper(TweetWrapper wrapper, TweetList tweetList, int page) {
 		Pageable pageable = new PageRequest(page, 10);

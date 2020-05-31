@@ -316,7 +316,22 @@ public class StatusUtils {
 						
 						return null;
 					}
-					
+
+					@Override
+					public String getProfileBanner300x100URL() {
+						return null;
+					}
+
+					@Override
+					public String getProfileBanner600x200URL() {
+						return null;
+					}
+
+					@Override
+					public String getProfileBanner1500x500URL() {
+						return null;
+					}
+
 					@Override
 					public String getProfileBannerIPadURL() {
 						
@@ -352,13 +367,23 @@ public class StatusUtils {
 						
 						return null;
 					}
-					
+
+					@Override
+					public String get400x400ProfileImageURLHttps() {
+						return null;
+					}
+
 					@Override
 					public String getOriginalProfileImageURL() {
 						
 						return null;
 					}
-					
+
+					@Override
+					public String get400x400ProfileImageURL() {
+						return null;
+					}
+
 					@Override
 					public String getName() {
 						
@@ -497,7 +522,12 @@ public class StatusUtils {
 				
 				return null;
 			}
-			
+
+			@Override
+			public URLEntity getQuotedStatusPermalink() {
+				return null;
+			}
+
 			@Override
 			public Place getPlace() {
 				
