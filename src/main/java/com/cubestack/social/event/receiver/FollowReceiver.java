@@ -28,14 +28,15 @@ import static reactor.bus.selector.Selectors.$;
 @Component
 public class FollowReceiver implements Consumer<Event<FollowEvent>> {
 
-	@Autowired
-	private EventBus bus;
+	private final EventBus bus;
+	private final TweetInteractionService tweetInteractionService;
+	private final TwitterUserPersistantService twitterUserPersistantService;
 
-	@Autowired
-	private TweetInteractionService tweetInteractionService;
-
-	@Autowired
-	private TwitterUserPersistantService twitterUserPersistantService;
+	public FollowReceiver(EventBus bus, TweetInteractionService tweetInteractionService, TwitterUserPersistantService twitterUserPersistantService) {
+		this.bus = bus;
+		this.tweetInteractionService = tweetInteractionService;
+		this.twitterUserPersistantService = twitterUserPersistantService;
+	}
 
 	@PostConstruct
 	public void init() {
@@ -44,7 +45,6 @@ public class FollowReceiver implements Consumer<Event<FollowEvent>> {
 
 	@Override
 	public void accept(Event<FollowEvent> event) {
-		System.out.println("Followed");
 		FollowEvent followEvent = event.getData();
 		String screenName = followEvent.getTwitterScreenName();
 

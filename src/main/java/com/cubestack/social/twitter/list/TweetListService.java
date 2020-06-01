@@ -29,11 +29,14 @@ import twitter4j.Status;
 @Transactional
 public class TweetListService {
 
-	@Autowired
-	private TwitterUserPersistantService persistantService;
+	private final TwitterUserPersistantService persistantService;
 
-	@Autowired
-	private TweetService tweetService;
+	private final TweetService tweetService;
+
+	public TweetListService(TwitterUserPersistantService persistantService, TweetService tweetService) {
+		this.persistantService = persistantService;
+		this.tweetService = tweetService;
+	}
 
 	public void addTweetToList(String category, Status interactionStatus, TwitterUserCandidate candidate) {
 		TwitterUser twitterUser = find(candidate);

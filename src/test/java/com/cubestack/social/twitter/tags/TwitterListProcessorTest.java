@@ -5,6 +5,8 @@ package com.cubestack.social.twitter.tags;
 
 import java.io.File;
 
+import com.cubestack.social.persistance.TwitterUserPersistantService;
+import com.cubestack.social.twitter.list.TweetService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,12 +32,9 @@ public class TwitterListProcessorTest {
 	
 	@Before
 	public void init () {
-		processor = new TweetListProcessor();
-		tweetListService = new MockTweetListService();
 		tweetInteractionService = new MockTweetInteractionService();
-		
-		ReflectionTestUtils.setField(processor, "tweetListService", tweetListService);
-		ReflectionTestUtils.setField(processor, "tweetInteractionService", tweetInteractionService);
+		tweetListService = new MockTweetListService(null, null);
+		processor = new TweetListProcessor(tweetListService, tweetInteractionService);
 	}
 	
 	@Test
@@ -78,10 +77,14 @@ public class TwitterListProcessorTest {
 	}
 	
 	class MockTweetListService extends TweetListService {
-		
+
 		private String category;
 		private String userScreenName;
-		
+
+		public MockTweetListService(TwitterUserPersistantService persistantService, TweetService tweetService) {
+			super(persistantService, tweetService);
+		}
+
 		public void addTweetToList(String category, Status interactionStatus, TwitterUserCandidate candidate) {
 			this.category = category;
 			this.userScreenName = candidate.getScreenName();

@@ -27,11 +27,15 @@ public class ResetPasswordProcessor extends PasswordProcessor {
 
 	private static final String RESET_PASSWORD = "RESET";
 
-	@Autowired
-	private TwitterUserRepository userRepository;
+	private final TwitterUserRepository userRepository;
 
-	@Autowired
-	private TweetInteractionService tweetInteractionService;
+	private final TweetInteractionService tweetInteractionService;
+
+	public ResetPasswordProcessor(TwitterUserRepository userRepository, TweetInteractionService tweetInteractionService) {
+		super(userRepository, tweetInteractionService);
+		this.userRepository = userRepository;
+		this.tweetInteractionService = tweetInteractionService;
+	}
 
 	@Override
 	public void handle(Status interactionStatus, Status status) {

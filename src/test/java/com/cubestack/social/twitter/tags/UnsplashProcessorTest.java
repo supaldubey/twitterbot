@@ -25,9 +25,8 @@ public class UnsplashProcessorTest {
 	
 	@Before
 	public void init () {
-		processor = new UnsplashTagProcessor();
 		asyncWorker = new MockAsyncWorker();
-		ReflectionTestUtils.setField(processor, "asyncWorker", asyncWorker);
+		processor = new UnsplashTagProcessor(asyncWorker, null, null, "");
 	}
 	
 	@Test

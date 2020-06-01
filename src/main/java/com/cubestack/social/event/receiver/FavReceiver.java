@@ -27,11 +27,13 @@ import twitter4j.TwitterException;
 @Component
 public class FavReceiver implements Consumer<Event<FavEvent>> {
 
-	@Autowired
-	private EventBus bus;
+	private final EventBus bus;
+	private final TweetInteractionService tweetInteractionService;
 
-	@Autowired
-	private TweetInteractionService tweetInteractionService;
+	public FavReceiver(EventBus bus, TweetInteractionService tweetInteractionService) {
+		this.bus = bus;
+		this.tweetInteractionService = tweetInteractionService;
+	}
 
 	@PostConstruct
 	public void init() {
@@ -40,7 +42,6 @@ public class FavReceiver implements Consumer<Event<FavEvent>> {
 
 	@Override
 	public void accept(Event<FavEvent> event) {
-		System.out.println("Tweet Faved, delete it");
 		FavEvent favEvent = event.getData();
 		Status status = favEvent.getStatus();
 

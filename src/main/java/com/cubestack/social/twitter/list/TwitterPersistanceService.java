@@ -20,8 +20,11 @@ import com.cubestack.social.persistance.TwitterUserRepository;
 @Transactional
 public class TwitterPersistanceService {
 
-	@Autowired
-	private TwitterUserRepository twitterRepository;
+	private final TwitterUserRepository twitterRepository;
+
+	public TwitterPersistanceService(TwitterUserRepository twitterRepository) {
+		this.twitterRepository = twitterRepository;
+	}
 
 	public TwitterUser save(TwitterUser tweep) {
 		return twitterRepository.save(tweep);

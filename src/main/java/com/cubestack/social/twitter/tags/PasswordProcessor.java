@@ -26,13 +26,15 @@ public class PasswordProcessor extends BaseTagProcessor {
 
 	private static final String PASSWORD = "PASSWORD";
 
-	@Autowired
-	private TwitterUserRepository userRepository;
-
-	@Autowired
-	private TweetInteractionService tweetInteractionService;
+	private final TwitterUserRepository userRepository;
+	private final TweetInteractionService tweetInteractionService;
 	
 	private static final Logger LOG = Logger.getLogger(PasswordProcessor.class);
+
+	public PasswordProcessor(TwitterUserRepository userRepository, TweetInteractionService tweetInteractionService) {
+		this.userRepository = userRepository;
+		this.tweetInteractionService = tweetInteractionService;
+	}
 
 	@Override
 	public void handle(Status interactionStatus, Status status) {
