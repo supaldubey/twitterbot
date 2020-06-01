@@ -31,6 +31,8 @@ local.properties
 /build
 /captures
 *.iml
+.idea
 
 #Props
 /src/main/resources/twitter4j.properties
+/src/main/resources/application.properties

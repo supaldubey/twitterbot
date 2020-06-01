@@ -7,7 +7,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -43,9 +42,6 @@ public class AppRestController {
 	private TweetListService tweetListService;
 
 	@RequestMapping(path = "{screenName}", method = RequestMethod.GET)
-	@PreAuthorize("hasIpAddress('127.0.01')")
-	// Not best way to secure, but for initial setup lets restrict to only localhost
-	// untill we figure out the size and scale
 	public Response findByUser(@PathVariable("screenName") String screenName) throws ProfileNotFoundException {
 		TwitterUser user = persistantService.findUserByScreenName(screenName);
 		if (user != null) {
@@ -57,7 +53,6 @@ public class AppRestController {
 	}
 
 	@RequestMapping(path = "{screenName}/{listName}/{pageIndex}", method = RequestMethod.GET)
-	@PreAuthorize("hasIpAddress('127.0.01')")
 	public Response findTweets(@PathVariable("screenName") String screenName,
 			@PathVariable("listName") String listName, @PathVariable("pageIndex") String pageIndex) throws ProfileNotFoundException {
 		int pageNo = GenericUtil.parseSafe(pageIndex);

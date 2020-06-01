@@ -27,6 +27,6 @@ public class StreamingTwitter {
 
 		TwitterStream twitterStream = new TwitterStreamFactory().getInstance();
 		twitterStream.addListener(listener);
-		twitterStream.user();
+//		twitterStream.user();
 	}
 }
